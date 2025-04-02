@@ -1,8 +1,8 @@
-require('dotenv').config()
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });  // Adjust path if necessary
 
 const express = require('express')
 const mongoose = require('mongoose')
-const path = require('path')
 const cron = require('node-cron'); // Import cron
 const Investment = require('./models/investmentModel'); // Import Investment model
 
