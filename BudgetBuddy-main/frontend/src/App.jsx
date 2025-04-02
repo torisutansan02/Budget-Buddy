@@ -12,7 +12,7 @@ function App() {
   
   return (
     <div className="App">
-      <BrowserRouter future={
+      <BrowserRouter basename='/' future={
         { 
           v7_startTransition: true, 
           v7_relativeSplatPath: true,

@@ -1,5 +1,7 @@
 const path = require('path');
-require('dotenv').config()
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({path: __dirname+'/.env'});
+}
 
 const express = require('express')
 const mongoose = require('mongoose')
@@ -75,6 +77,13 @@ mongoose.connect(process.env.MONGO_URI)
                 });
             });
         })
+        // static files (build of your frontend)
+        if (process.env.NODE_ENV === 'production') {
+            app.use(express.static(path.join(__dirname, '../frontend', 'build')));
+            app.get('/*', (req, res) => {
+            res.sendFile(path.join(__dirname, '../frontend', 'frontend/dist', 'index.html'));
+            })
+        }
     })
     .catch((error) => {
         console.log(error)
