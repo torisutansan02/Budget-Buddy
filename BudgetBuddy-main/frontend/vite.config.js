@@ -6,13 +6,19 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), // Optional: alias for cleaner imports
+      // Optional: alias for cleaner imports
+      '@': path.resolve(__dirname, './src'), 
     },
   },
+  build: {
+    // Customize build output directory if necessary
+    outDir: 'dist',
+  },
   server: {
-    port: 3000,
+    port: 3000, // Local server port
     proxy: {
-      '/api': 'http://localhost:4000', // Proxy API requests to backend
+      // Proxy API requests to backend server
+      '/api': 'http://localhost:4000', 
     },
   },
 })
