@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'dist', // Ensure this matches with Vercel settings
+    outDir: 'frontend/dist', // Ensure this matches with Vercel settings
   },
   server: {
     port: 3000, // Local server port
