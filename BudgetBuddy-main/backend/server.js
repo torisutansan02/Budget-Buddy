@@ -1,9 +1,11 @@
 const path = require('path');
-require('dotenv').config();  // Always load env variables, Vercel will manage these in production
+require('dotenv').config(); // Load env variables
 
 const express = require('express');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
+const cors = require('cors');
+
 const Investment = require('./models/investmentModel');
 
 // Import routes
@@ -15,20 +17,24 @@ const notificationRoutes = require('./routes/notifications');
 const userRoutes = require('./routes/user');
 
 const app = express();
-
-const cors = require('cors');
-
-app.use(cors({
-  origin: 'https://budget-buddy-dusky-sigma.vercel.app', // Replace with your Vercel URL
-  credentials: true
-}));
+const PORT = process.env.PORT || 4000;
 
 // Middleware
+app.use(cors({
+  origin: 'https://budget-buddy-dusky-sigma.vercel.app', // Change this if needed
+  credentials: true
+}));
 app.use(express.json());
 
+// Logger middleware
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
+  console.log(`${req.method} ${req.path}`);
   next();
+});
+
+// Health check route
+app.get('/', (req, res) => {
+  res.send('🚀 Budget Buddy API is running!');
 });
 
 // API routes
@@ -42,43 +48,51 @@ app.use('/api/banks', bankRoutes);
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log('Connected to MongoDB and listening on Port', process.env.PORT);
+    console.log('✅ MongoDB connected');
+
+    app.listen(PORT, () => {
+      console.log(`🌐 Server listening on port ${PORT}`);
 
       // Cron job for recurring investments
       cron.schedule('0 0 * * *', async () => {
-        const recurringInvestments = await Investment.find({ isRecurring: true });
+        console.log('🔁 Running daily recurring investment cron job...');
 
-        recurringInvestments.forEach(async investment => {
-          const now = new Date();
-          const startDate = new Date(investment.startDate);
+        try {
+          const recurringInvestments = await Investment.find({ isRecurring: true });
 
-          let shouldCreateEntry = false;
-          if (investment.recurrenceFrequency === 'weekly' && now > startDate) {
-            shouldCreateEntry = now.getDay() === startDate.getDay();
-          } else if (investment.recurrenceFrequency === 'monthly' && now > startDate) {
-            shouldCreateEntry = now.getDate() === startDate.getDate();
-          } else if (investment.recurrenceFrequency === 'yearly' && now > startDate) {
-            shouldCreateEntry = now.getMonth() === startDate.getMonth() && now.getDate() === startDate.getDate();
+          for (const investment of recurringInvestments) {
+            const now = new Date();
+            const startDate = new Date(investment.startDate);
+
+            let shouldCreateEntry = false;
+            if (investment.recurrenceFrequency === 'weekly' && now > startDate) {
+              shouldCreateEntry = now.getDay() === startDate.getDay();
+            } else if (investment.recurrenceFrequency === 'monthly' && now > startDate) {
+              shouldCreateEntry = now.getDate() === startDate.getDate();
+            } else if (investment.recurrenceFrequency === 'yearly' && now > startDate) {
+              shouldCreateEntry = now.getMonth() === startDate.getMonth() && now.getDate() === startDate.getDate();
+            }
+
+            if (shouldCreateEntry) {
+              const newInvestment = await Investment.create({
+                title: investment.title,
+                amount: investment.amount,
+                investmentType: investment.investmentType,
+                investmentDescription: investment.investmentDescription,
+                isRecurring: investment.isRecurring,
+                recurrenceFrequency: investment.recurrenceFrequency,
+                startDate: investment.startDate,
+                user: investment.user,
+              });
+              console.log('📈 Recurring Investment Created:', newInvestment.title);
+            }
           }
-
-          if (shouldCreateEntry) {
-            const newInvestment = await Investment.create({
-              title: investment.title,
-              amount: investment.amount,
-              investmentType: investment.investmentType,
-              investmentDescription: investment.investmentDescription,
-              isRecurring: investment.isRecurring,
-              recurrenceFrequency: investment.recurrenceFrequency,
-              startDate: investment.startDate,
-              user: investment.user,
-            });
-            console.log('Recurring Investment Created:', newInvestment);
-          }
-        });
+        } catch (err) {
+          console.error('❌ Cron job error:', err.message);
+        }
       });
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error('❌ MongoDB connection failed:', error.message);
   });
