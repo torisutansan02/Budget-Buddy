@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'frontend/dist', // Ensure this matches with Vercel settings
+    outDir: 'public', // Ensure this matches with Vercel settings
     emptyOutDir: true,
   },
   server: {
