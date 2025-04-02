@@ -21,7 +21,10 @@ const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(cors({
-  origin: 'https://budget-buddy-dusky-sigma.vercel.app', // Change this if needed
+  origin:  [
+    'http://localhost:5173',  // Local development
+    'https://budget-buddy-dusky-sigma.vercel.app', // Change this if needed
+  ],
   credentials: true
 }));
 app.use(express.json());
