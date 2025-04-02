@@ -10,8 +10,8 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'public', // Ensure this matches with Vercel settings
-    emptyOutDir: true,
+    outDir: 'build', // Ensure this matches with Vercel settings
+    
   },
   server: {
     port: 3000, // Local server port
