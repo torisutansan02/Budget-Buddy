@@ -1,18 +1,19 @@
-import { useAuthContext } from './useAuthContext'
-import { useInvestmentsContext } from './useInvestmentsContext'
+import { useAuthContext } from './useAuthContext';
+import { useInvestmentsContext } from './useInvestmentsContext';
 
 export const useLogout = () => {
-    const { dispatch } = useAuthContext()
-    const { dispatch: investmentsDispatch } = useInvestmentsContext()
+  const { dispatch } = useAuthContext();
+  const { dispatch: investmentsDispatch } = useInvestmentsContext();
 
-    const logout = () => {
-        // Remove user from storage
-        localStorage.removeItem('user')
+  const logout = () => {
+    // Clear all relevant localStorage data
+    localStorage.removeItem('user');
+    localStorage.removeItem('hasSentNotification'); // optional if used
 
-        // Dispatch Logout Action
-        dispatch({type: 'LOGOUT'})
-        investmentsDispatch({type: 'SET_INVESTMENTS', payload: null})
-    }
+    // Dispatch logout-related actions
+    dispatch({ type: 'LOGOUT' });
+    investmentsDispatch({ type: 'SET_INVESTMENTS', payload: [] }); // safer fallback than `null`
+  };
 
-    return {logout}
-}
+  return { logout };
+};
