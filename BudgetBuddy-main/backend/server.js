@@ -33,8 +33,6 @@ app.use('/api/budgets', budgetRoutes)
 app.use('/api/incomes', incomeRoutes)
 app.use('/api/notifications', notificationRoutes)
 app.use('/api/user', userRoutes)
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use('/api/banks', bankRoutes)
 
 // Connect to MongoDB
