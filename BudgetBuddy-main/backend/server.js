@@ -19,7 +19,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors({
-  origin: 'https://your-frontend.vercel.app', // Replace with your Vercel URL
+  origin: 'https://budget-buddy-dusky-sigma.vercel.app/login', // Replace with your Vercel URL
   credentials: true
 }));
 
