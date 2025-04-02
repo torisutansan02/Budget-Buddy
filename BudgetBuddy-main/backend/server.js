@@ -33,7 +33,7 @@ app.use('/api/notifications', notificationRoutes)
 app.use('/api/user', userRoutes)
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-app.use('/banks', bankRoutes)
+app.use('/api/banks', bankRoutes)
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)

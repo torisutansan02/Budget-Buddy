@@ -1,90 +1,77 @@
-const Bank = require('../models/bankModel')
-const multer = require('multer')
-const csv = require('csv-parser')
-const fs = require('fs')
-const path = require('path')
-const mongoose = require('mongoose')
+const Bank = require('../models/bankModel');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const mongoose = require('mongoose');
+const ofx = require('ofx');
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'banks/'),
-    filename: (req, file, cb) => cb(null, file.fieldname) + '-' + Date.now() + path.extname(file.originalname)
-})
+    destination: (req, file, cb) => {
+        const dir = 'banks/';
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        cb(null, dir);
+    },
+    filename: (req, file, cb) => cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+});
 
-const upload = multer ({ storage: storage });
+const upload = multer({ storage: storage });
 
-// Get all of the transactions
 const getFiles = async (req, res) => {
-    const user_id = req.user._id
-
-    const files = await Bank.find({ user_id }).sort({createdAt: -1})
-
-    res.status(200).json(files)
-}
+    const user_id = req.user._id;
+    const files = await Bank.find({ user_id }).sort({ createdAt: -1 });
+    res.status(200).json(files);
+};
 
 const getFile = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such file'})
+        return res.status(404).json({ error: 'No such file' });
     }
 
-    const file = await Bank.findById(id)
+    const file = await Bank.findById(id);
 
     if (!file) {
-        return res.status(404).json({error: 'No such file'})
+        return res.status(404).json({ error: 'No such file' });
     }
 
-    res.status(200).json(file)
-}
-
-const isValidDescription = (description) => description && description.length > 20;
-const isValidAmount = (amount) => /^-\d+(\.\d{0,2})?$/.test(amount);
-const isValidDate = (date) => /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(date);
-
-const columnMappings = {
-    'date': ['date', 'transaction_date', 'Date', 'Posting Date', /^\d{1,2}\/\d{1,2}\/\d{2,4}$/],
-    'description': ['description', 'details', 'Notes', 'Description', /^.{20,}$/],
-    'amount': ['amount', 'value', 'Amount', /^-?\d+(\.\d{0,2})?$/]
+    res.status(200).json(file);
 };
 
-const inferColumnTypes = (headers, row) => {
-    const inferredColumns = { date: null, description: null, amount: null };
+const parseQFX = (ofxData, user_id, sourceFile) => {
+    const transactions = [];
 
-    headers.forEach((header) => {
-        const value = row[header];
+    const bankTransList = ofxData.OFX?.BANKMSGSRSV1?.STMTTRNRS?.STMTRS?.BANKTRANLIST?.STMTTRN;
+    if (!Array.isArray(bankTransList)) return transactions;
 
-        if (isValidDate(value)) {
-            inferredColumns.date = header;
-        } else if (isValidAmount(value)) {
-            inferredColumns.amount = header;
-        } else if (isValidDescription(value)) {
-            inferredColumns.description = header;
+    bankTransList.forEach(txn => {
+        const { DTPOSTED, TRNAMT, NAME, MEMO } = txn;
+
+        const rawDate = DTPOSTED?.split('[')[0];
+        const cleanDateStr = rawDate?.slice(0, 14);
+        const year = cleanDateStr?.slice(0, 4);
+        const month = cleanDateStr?.slice(4, 6);
+        const day = cleanDateStr?.slice(6, 8);
+        const hour = cleanDateStr?.slice(8, 10);
+        const minute = cleanDateStr?.slice(10, 12);
+        const second = cleanDateStr?.slice(12, 14);
+
+        const formattedDate = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}`);
+
+        if (!isNaN(formattedDate) && TRNAMT && NAME && NAME.length > 2) {
+            transactions.push({
+                user_id,
+                description: MEMO ? `${NAME} - ${MEMO}` : NAME,
+                amount: parseFloat(TRNAMT),
+                date: formattedDate,
+                sourceFile
+            });
         }
     });
 
-    return inferredColumns;
-};
-
-const columnsMatchMapping = (headers, columnMapping) => {
-    return Object.keys(columnMapping).every((key) => {
-        const column = columnMapping[key];
-        return headers.includes(column) || (column instanceof RegExp && headers.some(h => column.test(h)));
-    });
-};
-
-const getColumnMapping = (headers) => {
-    const mapping = {};
-
-    headers.forEach(header => {
-        for (const [field, possibleHeaders] of Object.entries(columnMappings)) {
-            if (possibleHeaders.some(h => (typeof h === 'string' ? header.toLowerCase() === h.toLowerCase() : h.test(header)))) {
-                mapping[field] = header;
-                break;
-            }
-        }
-    });
-
-    return mapping;
+    return transactions;
 };
 
 const uploadFile = async (req, res) => {
@@ -94,132 +81,51 @@ const uploadFile = async (req, res) => {
 
     const user_id = req.user._id;
     const filePath = req.file.path;
-    const file = [];
+    const extension = path.extname(filePath).toLowerCase();
 
-    let headers = [];
-    let inferredColumns = {};
-    let columnMapping = {};
+    if (extension !== '.qfx') {
+        return res.status(400).json({ error: 'Only QFX files are supported' });
+    }
 
-    const readStream = fs.createReadStream(filePath)
-        .pipe(csv());
+    try {
+        const qfxContent = fs.readFileSync(filePath, 'utf8');
+        const ofxData = await ofx.parse(qfxContent);
+        const transactions = parseQFX(ofxData, user_id, req.file.filename);
 
-    readStream
-        .on('headers', (csvHeaders) => {
-            headers = csvHeaders;
-            console.log('Headers:', headers);
-        })
-        .on('data', (data) => {
-            if (Object.keys(columnMapping).length === 0) {
-                columnMapping = getColumnMapping(headers);
+        if (!transactions.length) {
+            return res.status(400).json({ error: 'No valid transactions found in QFX file' });
+        }
 
-                if (!columnsMatchMapping(headers, columnMapping)) {
-                    console.log('Headers do not match expected column mapping, inferring columns from data...');
-                    inferredColumns = inferColumnTypes(headers, data);
-                    console.log('Inferred Columns:', inferredColumns);
-                } else {
-                    console.log('Matching Column Mapping:', columnMapping);
+        await Bank.insertMany(transactions);
 
-                    if (!isValidDescription(columnMapping.description)) {
-                        console.warn(`Skipping entry with invalid description: ${columnMapping.description}`);
-                        return;
-                    }
-
-                    if (!isValidAmount(columnMapping.amount)) {
-                        console.warn(`Skipping entry with invalid amount: ${columnMapping.amount}`);
-                        return;
-                    }
-
-                    if (!isValidDate(columnMapping.date)) {
-                        console.warn(`Skipping entry with invalid date: ${columnMapping.date}`);
-                        return;
-                    }
-
-                    const [month, day, year] = columnMapping.date.split('/').map(Number);
-                    const parsedDate = new Date(year, month - 1, day);
-
-                    const mappedData = {
-                        user_id: user_id,
-                        description: columnMapping.description,
-                        amount: parseFloat(columnMapping.amount),
-                        date: parsedDate
-                    };
-
-                    file.push(mappedData);
-                }
-            }
-
-            const columnsToUse = Object.keys(columnMapping).length ? columnMapping : inferredColumns;
-
-            if (!columnsToUse.date || !columnsToUse.description || !columnsToUse.amount) {
-                console.error('Cannot determine necessary columns');
-                return;
-            }
-
-            const description = data[columnsToUse.description];
-            const amount = data[columnsToUse.amount];
-            const date = data[columnsToUse.date];
-
-            console.log('Parsed Data:', {
-                description,
-                amount,
-                date
-            });
-
-            if (!isValidDescription(description)) {
-                console.warn(`Skipping entry with invalid description: ${description}`);
-                return;
-            }
-
-            if (!isValidAmount(amount)) {
-                console.warn(`Skipping entry with invalid amount: ${amount}`);
-                return;
-            }
-
-            if (!isValidDate(date)) {
-                console.warn(`Skipping entry with invalid date: ${date}`);
-                return;
-            }
-
-            const [month, day, year] = date.split('/').map(Number);
-            const parsedDate = new Date(year, month - 1, day);
-
-            const mappedData = {
-                user_id: user_id,
-                description: description,
-                amount: parseFloat(amount),
-                date: parsedDate
-            };
-
-            file.push(mappedData);
-        })
-        .on('end', () => {
-            Bank.insertMany(file)
-                .then(() => res.status(200).json({ message: 'CSV data imported successfully' }))
-                .catch((error) => res.status(500).json({ error: 'Error importing CSV data: ' + error.message }));
-        })
-        .on('error', (error) => {
-            res.status(500).json({ error: 'Error reading file: ' + error.message });
+        fs.unlink(filePath, (err) => {
+            if (err) console.warn('Failed to delete uploaded file:', err);
         });
+
+        res.status(200).json({ message: 'QFX data imported successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
 const deleteFile = async (req, res) => {
-    const { id } = req.params
-    
+    const { id } = req.params;
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such file'})
+        return res.status(404).json({ error: 'No such file' });
     }
 
-    const file = await Bank.findOneAndDelete({_id: id})
+    const file = await Bank.findOneAndDelete({ _id: id });
 
     if (!file) {
-        return res.status(400).json({error: 'No such file'})
+        return res.status(400).json({ error: 'No such file' });
     }
 
-    res.status(200).json(file)
-}
+    res.status(200).json(file);
+};
 
-module.exports = { 
-    upload, 
+module.exports = {
+    upload,
     uploadFile,
     getFiles,
     getFile,

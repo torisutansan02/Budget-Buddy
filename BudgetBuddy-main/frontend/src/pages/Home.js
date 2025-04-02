@@ -411,19 +411,19 @@ const Home = () => {
 
     useEffect(() => {
         const fetchFiles = async () => {
-            const response = await fetch ('banks/upload', {
+            const response = await fetch('/api/banks', {
                 headers: {
-                    'Authorization' : `Bearer ${user.token}`
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
-
+    
             const json = await response.json();
-
+    
             if (response.ok) {
                 fileDispatch({ type: 'SET_FILES', payload: json });
             }
         };
-
+    
         if (user) {
             fetchFiles();
         }

@@ -15,56 +15,53 @@ const StatementUpload = () => {
     };
 
     const handleSubmit = async (e) => {
+        e.preventDefault(); // prevent default form submission
+
         if (!user) {
             setError('You must be logged in');
             return;
         }
-        
+
         if (!selectedFile) {
             setError('Please select a file to upload');
             return;
         }
-        
+
         const formData = new FormData();
         formData.append('file', selectedFile);
-        
+
         try {
-            const response = await fetch('/banks/upload/', {
+            const response = await fetch('/api/banks', {
                 method: 'POST',
-                body: formData,
                 headers: {
                     'Authorization': `Bearer ${user.token}`
-                }
+                },
+                body: formData
             });
 
-            if (!response.ok) {
-                const errorText = await response.text();  // Get error text if available
-                setError(`Failed to upload file: ${errorText}`);
-                return;
-            }
-        
             const json = await response.json();
 
-            if (json.error) {
-                setError(json.error);
-            } else {
-                console.log('New File Added', json);
-                fileDispatch({ type: 'CREATE_FILE', payload: json });
-                setError(null);
+            if (!response.ok) {
+                setError(json.error || 'Upload failed');
+                return;
             }
+
+            console.log('New File Added', json);
+            fileDispatch({ type: 'CREATE_FILE', payload: json });
+            setError(null);
         } catch (err) {
             setError('An error occurred while uploading: ' + err.message);
         }
-    };        
+    };
 
     return (
         <form className="upload-form" onSubmit={handleSubmit}>
             <h3>Upload Bank Statement</h3>
 
-            <label>Choose CSV file:</label>
+            <label>Choose QFX file:</label>
             <input
                 type="file"
-                accept=".csv"
+                accept=".qfx"
                 onChange={handleFileChange}
                 className={error ? 'error' : ''}
             />

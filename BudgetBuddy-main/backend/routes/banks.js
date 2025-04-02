@@ -15,15 +15,15 @@ const router = express.Router()
 router.use(requireAuth)
 
 // GET all files
-router.get('/upload', getFiles)
+router.get('/', getFiles);
 
 // GET a single file
-router.get('/upload/:id', getFile)
+router.get('/:id', getFile);
 
 // POST a file upload
-router.post('/upload', upload.single('file'), uploadFile)
+router.post('/', upload.single('file'), uploadFile);
 
 // DELETE a file
-router.delete('/upload/:id', deleteFile)
+router.delete('/:id', deleteFile);
 
 module.exports = router
