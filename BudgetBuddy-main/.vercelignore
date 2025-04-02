@@ -1,31 +1,4 @@
-# Ignore backend server code
-/api/
-/server/
-/backend/
-/functions/
-/scripts/
-
-# Ignore config & env files not needed for frontend
+# .vercelignore
+backend/
 .env
-.env.local
-.env.development
-.env.production
-.env.test
-
-# Ignore build artifacts
-dist/
-build/
-*.log
-*.tsbuildinfo
-
-# Ignore test files
-tests/
-__tests__/
-coverage/
-*.spec.js
-*.test.js
-
-# Ignore misc
-Dockerfile
-docker-compose.yml
 README.md
