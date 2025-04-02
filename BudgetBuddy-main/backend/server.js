@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 4000;
 // Middleware
 app.use(cors({
   origin:  [
+    'http://localhost:3000',
     'http://localhost:5173',
     'https://budget-buddy-dusky-sigma.vercel.app',
   ],
