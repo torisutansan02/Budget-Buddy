@@ -11,6 +11,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'frontend/dist', // Ensure this matches with Vercel settings
+    emptyOutDir: true,
   },
   server: {
     port: 3000, // Local server port
