@@ -1,16 +1,16 @@
-const express = require('express')
-const querystring = require('querystring')
-const axios = require('axios')
+const express = require('express');
+const querystring = require('querystring');
+const axios = require('axios');
 
 // Controller Functions
-const { loginUser, signupUser } = require('../controllers/userController')
+const { loginUser, signupUser } = require('../controllers/userController');
 
-const router = express.Router()
+const router = express.Router();
 
 // Login Route
-router.post('/login', loginUser)
+router.post('/login', loginUser);
 
 // Signup Route
-router.post('/signup', signupUser)
+router.post('/signup', signupUser);
 
-module.exports = router
+module.exports = router;

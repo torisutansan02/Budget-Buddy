@@ -1,12 +1,12 @@
-import { BudgetsContext } from '../context/BudgetContext'
-import { useContext } from 'react'
+import { BudgetsContext } from '../context/BudgetContext';
+import { useContext } from 'react';
 
 export const useBudgetsContext = () => {
-    const context = useContext(BudgetsContext)
+  const context = useContext(BudgetsContext);
 
-    if (!context) {
-        throw Error('useBudgetsContext must be used inside an BudgetsContextProvider')
-    }
+  if (!context) {
+    throw Error('useBudgetsContext must be used inside an BudgetsContextProvider');
+  }
 
-    return context
-}
+  return context;
+};

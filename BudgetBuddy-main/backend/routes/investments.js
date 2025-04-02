@@ -1,11 +1,11 @@
 const express = require('express');
 const {
-    createInvestment,
-    getInvestments,
-    getInvestment,
-    deleteInvestment,
-    updateInvestment,
-    getInvestmentsByDateRange
+  createInvestment,
+  getInvestments,
+  getInvestment,
+  deleteInvestment,
+  updateInvestment,
+  getInvestmentsByDateRange,
 } = require('../controllers/investmentController');
 
 const requireAuth = require('../middleware/requireAuth');

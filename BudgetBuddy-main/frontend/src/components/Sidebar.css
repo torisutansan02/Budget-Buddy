@@ -1,25 +1,82 @@
+/* Desktop styles */
 .sidebar {
+  list-style: none;
+  float: left;
+  background: white;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 20px;
+}
+
+.sidebar ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fix, minmax(100px, 1fr));
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar li {
+  box-sizing: border-box;
+  padding: 5px;
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-}
+  }
 
-.sidebar li {
+  .sidebar li {
     margin: 5px;
-}
+  }
 
-.sidebar button {
+  .sidebar button {
     padding: 10px 20px;
     background-color: white;
     color: green;
     border: none;
     cursor: pointer;
-}
+  }
 
-.sidebar button.active {
+  .sidebar button.active {
     background-color: grey;
     color: white;
+  }
+}
+
+/* Mobile / tablet styles */
+@media (max-width: 1023px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .sidebar li {
+    margin: auto;
+  }
+
+  .sidebar button {
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .sidebar button.active {
+    background-color: grey;
+    color: white;
+  }
 }

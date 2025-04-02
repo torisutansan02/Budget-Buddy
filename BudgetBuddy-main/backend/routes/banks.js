@@ -1,18 +1,18 @@
-const express = require('express')
-const { 
-    upload,
-    uploadFile,
-    getFiles,
-    getFile,
-    deleteFile
-} = require('../controllers/bankController')
+const express = require('express');
+const {
+  upload,
+  uploadFile,
+  getFiles,
+  getFile,
+  deleteFile,
+} = require('../controllers/bankController');
 
-const requireAuth = require('../middleware/requireAuth')
+const requireAuth = require('../middleware/requireAuth');
 
-const router = express.Router()
+const router = express.Router();
 
 // Require Auth for all bank routes
-router.use(requireAuth)
+router.use(requireAuth);
 
 // GET all files
 router.get('/', getFiles);
@@ -26,4 +26,4 @@ router.post('/', upload.single('file'), uploadFile);
 // DELETE a file
 router.delete('/:id', deleteFile);
 
-module.exports = router
+module.exports = router;

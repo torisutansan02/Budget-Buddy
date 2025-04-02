@@ -20,14 +20,16 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Middleware
-app.use(cors({
-  origin:  [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://budget-buddy-dusky-sigma.vercel.app',
-  ],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'https://budget-buddy-dusky-sigma.vercel.app',
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Logger middleware
@@ -50,7 +52,8 @@ app.use('/api/user', userRoutes);
 app.use('/api/banks', bankRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connected');
 
@@ -74,7 +77,8 @@ mongoose.connect(process.env.MONGO_URI)
             } else if (investment.recurrenceFrequency === 'monthly' && now > startDate) {
               shouldCreateEntry = now.getDate() === startDate.getDate();
             } else if (investment.recurrenceFrequency === 'yearly' && now > startDate) {
-              shouldCreateEntry = now.getMonth() === startDate.getMonth() && now.getDate() === startDate.getDate();
+              shouldCreateEntry =
+                now.getMonth() === startDate.getMonth() && now.getDate() === startDate.getDate();
             }
 
             if (shouldCreateEntry) {

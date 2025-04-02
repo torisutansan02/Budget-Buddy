@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './sidebar.css';
 
 const Sidebar = ({ setActiveView, notifications }) => {
   const [activeButton, setActiveButton] = useState(null); // State to track the active button
@@ -35,48 +36,36 @@ const Sidebar = ({ setActiveView, notifications }) => {
     <nav>
       <ul className="sidebar">
         <li className="sidebar">
-          <button 
-            style={getButtonStyle('investments')} 
-            onClick={() => handleClick('investments')}
-          >
+          <button style={getButtonStyle('investments')} onClick={() => handleClick('investments')}>
             Investments
           </button>
         </li>
         <li className="sidebar">
-          <button 
-            style={getButtonStyle('budgets')} 
-            onClick={() => handleClick('budgets')}
-          >
+          <button style={getButtonStyle('budgets')} onClick={() => handleClick('budgets')}>
             Budgets
           </button>
         </li>
         <li className="sidebar">
-          <button 
-            style={getButtonStyle('incomes')} 
-            onClick={() => handleClick('incomes')}
-          >
+          <button style={getButtonStyle('incomes')} onClick={() => handleClick('incomes')}>
             Incomes
           </button>
         </li>
         <li className="sidebar">
-          <button 
-            style={getButtonStyle('statements')} 
-            onClick={() => handleClick('statements')}
-          >
+          <button style={getButtonStyle('statements')} onClick={() => handleClick('statements')}>
             Statements
           </button>
         </li>
         <li className="sidebar">
-          <button 
-            style={getButtonStyle('spendingSummary')} 
+          <button
+            style={getButtonStyle('spendingSummary')}
             onClick={() => handleClick('spendingSummary')}
           >
             Spending Summary
           </button>
         </li>
         <li className="sidebar">
-          <button 
-            style={getButtonStyle('notifications')} 
+          <button
+            style={getButtonStyle('notifications')}
             onClick={() => handleClick('notifications')}
           >
             Notifications {hasNotifications && <span>({safeNotifications.length})</span>}

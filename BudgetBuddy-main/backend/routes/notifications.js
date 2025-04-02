@@ -1,15 +1,17 @@
 const express = require('express');
 
-const { getNotifications, 
-        updateNotification,
-        deleteNotification } = require('../controllers/notificationController');
+const {
+  getNotifications,
+  updateNotification,
+  deleteNotification,
+} = require('../controllers/notificationController');
 
 const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
 
 // Require Auth for all notifications routes
-router.use(requireAuth)
+router.use(requireAuth);
 
 // Route to get notifications for a user
 router.get('/', getNotifications);
