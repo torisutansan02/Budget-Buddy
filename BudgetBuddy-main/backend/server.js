@@ -76,13 +76,10 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(error);
   });
 
-// Serve frontend build in production
+// static files (build of your frontend)
 if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the frontend build folder
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-  // Serve index.html for any other routes
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
-  });
+    app.use(express.static(path.join(__dirname, '../frontend', 'build')));
+    app.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
+    })
 }
