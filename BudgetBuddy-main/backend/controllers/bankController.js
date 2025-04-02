@@ -153,7 +153,7 @@ const deleteFile = async (req, res) => {
     res.status(200).json(file);
 };
 
-// Export controller functions
+// Export controller functions :D
 module.exports = {
     upload,
     uploadFile,
