@@ -1,6 +1,5 @@
 const path = require('path');
 require('dotenv').config();  // Always load env variables, Vercel will manage these in production
-const port = process.env.PORT || 4000;
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -34,20 +33,9 @@ app.use('/api/user', userRoutes);
 app.use('/api/banks', bankRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  
-    // remove poolSize or set according to your need
-    // read docs before setting poolSize
-    // default to 5
-    poolSize: 1
-  })
-
+mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(port, () => {
+    app.listen(process.env.PORT, () => {
       console.log('Connected to MongoDB and listening on Port', process.env.PORT);
 
       // Cron job for recurring investments
@@ -86,7 +74,7 @@ mongoose.connect(process.env.MONGO_URI, {
   })
   .catch((error) => {
     console.log(error);
-  })
+  });
 
 // static files (build of your frontend)
 if (process.env.NODE_ENV === 'production') {
@@ -94,4 +82,4 @@ if (process.env.NODE_ENV === 'production') {
     app.get('/*', (req, res) => {
       res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
     })
-}
+  }
