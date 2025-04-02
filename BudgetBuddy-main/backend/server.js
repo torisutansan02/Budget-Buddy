@@ -1,5 +1,6 @@
 const path = require('path');
 require('dotenv').config();  // Always load env variables, Vercel will manage these in production
+const port = process.env.PORT || 4000;
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -44,9 +45,9 @@ mongoose.connect(process.env.MONGO_URI, {
     // default to 5
     poolSize: 1
   })
-  
+
   .then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(port, () => {
       console.log('Connected to MongoDB and listening on Port', process.env.PORT);
 
       // Cron job for recurring investments
