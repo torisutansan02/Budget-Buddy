@@ -21,7 +21,7 @@ const BudgetForm = () => {
 
         const budget = {amount}
 
-        const response = await fetch('/api/budgets', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/budgets`, {
             method: 'POST',
             body: JSON.stringify(budget),
             headers: {

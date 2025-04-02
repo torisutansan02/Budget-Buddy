@@ -22,7 +22,7 @@ const IncomeForm = () => {
 
         const income = {amount, incomeType}
 
-        const response = await fetch('/api/incomes', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/incomes`, {
             method: 'POST',
             body: JSON.stringify(income),
             headers: {

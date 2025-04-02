@@ -13,7 +13,7 @@ const IncomeDetails = ({ income }) => {
             return
         }
 
-        const response = await fetch('api/incomes/' + income._id, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/incomes/` + income._id, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`

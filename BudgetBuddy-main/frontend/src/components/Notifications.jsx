@@ -13,7 +13,7 @@ const NotificationDetails = ({ notification }) => {
             return
         }
 
-        const response = await fetch('/api/notifications/' + notification._id, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/notifications/` + notification._id, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`

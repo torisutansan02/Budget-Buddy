@@ -13,7 +13,7 @@ const BudgetDetails = ({ budget }) => {
             return
         }
 
-        const response = await fetch('/api/budgets/' + budget._id, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/budgets/` + budget._id, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`

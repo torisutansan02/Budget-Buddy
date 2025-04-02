@@ -31,7 +31,7 @@ const StatementUpload = () => {
         formData.append('file', selectedFile);
 
         try {
-            const response = await fetch('/api/banks', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/banks`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${user.token}`

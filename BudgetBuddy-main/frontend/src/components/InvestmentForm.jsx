@@ -53,7 +53,7 @@ const InvestmentForm = () => {
             investment.startDate = startDate;
         }
 
-        const response = await fetch('/api/investments', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/investments`, {
             method: 'POST',
             body: JSON.stringify(investment),
             headers: {
