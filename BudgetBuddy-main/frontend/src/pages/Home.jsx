@@ -392,7 +392,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchIncomes = async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}api/incomes`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/incomes`, {
                 headers: {
                     'Authorization' : `Bearer ${user.token}`
                 }
