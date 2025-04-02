@@ -33,7 +33,18 @@ app.use('/api/user', userRoutes);
 app.use('/api/banks', bankRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  
+    // remove poolSize or set according to your need
+    // read docs before setting poolSize
+    // default to 5
+    poolSize: 1
+  })
+  
   .then(() => {
     app.listen(process.env.PORT, () => {
       console.log('Connected to MongoDB and listening on Port', process.env.PORT);
@@ -74,7 +85,7 @@ mongoose.connect(process.env.MONGO_URI)
   })
   .catch((error) => {
     console.log(error);
-  });
+  })
 
 // static files (build of your frontend)
 if (process.env.NODE_ENV === 'production') {
