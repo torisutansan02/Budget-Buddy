@@ -11,13 +11,12 @@ export default defineConfig({
   },
   build: {
     outDir: 'build', // Ensure this matches with Vercel settings
-    
+    emptyOutDir: true,
   },
   server: {
-    port: 3000, // Local server port
+    port: 3000,
     proxy: {
-      // Proxy API requests to backend server
-      '/api': 'http://localhost:4000', 
+      '/api': 'http://localhost:4000', // Proxy API requests to the backend server
     },
   },
 });
