@@ -1,8 +1,18 @@
 {
-    "outputDirectory": "frontend/dist",
-    "devCommand": "echo skip vite dev",
-    "rewrites": [
-      { "source": "/api/(.*)", "destination": "/backend/api/$1" }
+    "version": 2,
+    "builds": [
+      {
+        "src": "frontend/package.json",
+        "use": "@vercel/static-build"
+      },
+      {
+        "src": "backend/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      { "src": "/api/(.*)", "dest": "/backend/$1.js" },
+      { "src": "/(.*)", "dest": "/frontend/dist/$1" }
     ]
   }
   
