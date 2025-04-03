@@ -1,4 +1,4 @@
-# .vercelignore
+node_modules/
 backend/
-.env
-README.md
+*.config.js
+*.lock
