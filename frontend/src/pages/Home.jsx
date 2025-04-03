@@ -42,7 +42,7 @@ const Home = () => {
   const monthName = months[monthIndex];
 
   const [activeView, setActiveView] = useState('neither');
-  const [activeViewInvestment, setActiveViewInvestment] = useState('neither');
+  const [activeViewInvestment, setActiveViewInvestment] = useState('investmentAnalysis');
   const [selectedMonth, setSelectedMonth] = useState(monthName);
   const [selectedMonthStatements, setSelectedMonthStatements] = useState(monthName);
 
