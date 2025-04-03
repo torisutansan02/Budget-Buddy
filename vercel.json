@@ -1,6 +1,0 @@
-{
-    "rootDirectory": "frontend",
-    "buildCommand": "npm run build",
-    "outputDirectory": "dist",
-    "ignoreCommand": "echo 'Skipping build in root directory'"
-}
