@@ -4,17 +4,12 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    outDir: 'dist', // Ensure this matches with your build directory
-  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), // Optional: alias for cleaner imports
+      '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      '/api': 'http://localhost:4000', // Proxy API requests to the backend
-    },
+  build: {
+    outDir: 'dist',
   },
 });
