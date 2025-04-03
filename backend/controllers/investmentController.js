@@ -96,14 +96,6 @@ const createInvestment = async (req, res) => {
 
     const remainingBudget = totalBudgetAmount - totalInvested;
 
-    console.log('🚨 Budget Check Log:', {
-      totalInvested,
-      totalBudgetAmount,
-      investmentAttempt: numericAmount,
-      remainingBudget,
-      condition: numericAmount > remainingBudget
-    });
-
     if (numericAmount > remainingBudget) {
       console.log("❌ BLOCKED: Over budget");
       return res.status(400).json({
