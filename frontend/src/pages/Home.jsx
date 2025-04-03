@@ -41,8 +41,8 @@ const Home = () => {
   const monthIndex = now.getMonth();
   const monthName = months[monthIndex];
 
-  const [activeView, setActiveView] = useState('investments');
-  const [activeViewInvestment, setActiveViewInvestment] = useState('investmentAnalysis');
+  const [activeView, setActiveView] = useState('neither');
+  const [activeViewInvestment, setActiveViewInvestment] = useState('neither');
   const [selectedMonth, setSelectedMonth] = useState(monthName);
   const [selectedMonthStatements, setSelectedMonthStatements] = useState(monthName);
 
