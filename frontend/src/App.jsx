@@ -26,7 +26,7 @@ function App() {
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
             <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
             {/* If a user attempts to go to a 404 page */}
-            <Route path="*" element={!user ? <Login /> : <Navigate to="/" />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </BrowserRouter>
