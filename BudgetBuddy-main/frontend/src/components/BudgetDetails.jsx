@@ -1,5 +1,6 @@
 import { useBudgetsContext } from '../hooks/useBudgetsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
+import './BudgetDetails.css'
 
 // Date FNS Library
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';

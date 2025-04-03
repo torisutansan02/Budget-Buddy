@@ -1,5 +1,6 @@
 import { useIncomesContext } from '../hooks/useIncomesContext';
 import { useAuthContext } from '../hooks/useAuthContext';
+import './IncomeDetails.css'
 
 // Date FNS Library
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
