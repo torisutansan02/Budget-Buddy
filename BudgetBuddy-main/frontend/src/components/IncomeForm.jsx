@@ -64,8 +64,8 @@ const IncomeForm = () => {
         className={emptyFields.includes('incomeType') ? 'error' : ''}
       >
         <option value=""> </option>
-        <option value="active"> Active </option>
-        <option value="passive"> Passive </option>
+        <option value="Active"> Active </option>
+        <option value="Passive"> Passive </option>
       </select>
 
       <button> Add Income </button>

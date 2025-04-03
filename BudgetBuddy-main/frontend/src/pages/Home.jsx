@@ -42,7 +42,7 @@ const Home = () => {
   const monthName = months[monthIndex];
 
   const [activeView, setActiveView] = useState('investments');
-  const [activeViewInvestment, setActiveViewInvestment] = useState('neither');
+  const [activeViewInvestment, setActiveViewInvestment] = useState('investmentAnalysis');
   const [selectedMonth, setSelectedMonth] = useState(monthName);
   const [selectedMonthStatements, setSelectedMonthStatements] = useState(monthName);
 
@@ -124,7 +124,7 @@ const Home = () => {
   const handleSetActiveView = (view) => {
     setActiveView(view);
     if (['budgets', 'incomes', 'statements', 'spendingSummary', 'notifications'].includes(view)) {
-      setActiveViewInvestment('neither');
+      setActiveViewInvestment('investmentAnalysis');
     }
   };
 
@@ -133,7 +133,10 @@ const Home = () => {
       case 'investments':
         return (
           <div className="home">
-            <ToggleInvestmentForm setActiveViewInvestment={setActiveViewInvestment} />
+            <ToggleInvestmentForm
+              activeViewInvestment={activeViewInvestment}
+              setActiveViewInvestment={setActiveViewInvestment}
+            />
           </div>
         );
       case 'budgets':

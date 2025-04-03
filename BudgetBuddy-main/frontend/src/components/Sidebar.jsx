@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './sidebar.css';
 
 const Sidebar = ({ setActiveView, notifications }) => {
-  const [activeButton, setActiveButton] = useState(null); // State to track the active button
+  const [activeButton, setActiveButton] = useState('investments'); // State to track the active button
 
   // Ensure notifications is always an array before accessing its properties
   const safeNotifications = notifications || [];

@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Details.css';
 
-const ToggleInvestmentForm = ({ setActiveViewInvestment }) => {
-  const [activeView, setActiveView] = useState('investmentAnalysis');
-
+const ToggleInvestmentForm = ({ activeViewInvestment, setActiveViewInvestment }) => {
   const handleClick = (view) => {
-    setActiveView(view);
     setActiveViewInvestment(view);
   };
 
@@ -15,7 +12,7 @@ const ToggleInvestmentForm = ({ setActiveViewInvestment }) => {
         <ul className="sidebar">
           <li className="sidebar">
             <button
-              className={activeView === 'investmentAnalysis' ? 'active' : ''}
+              className={activeViewInvestment === 'investmentAnalysis' ? 'active' : ''}
               onClick={() => handleClick('investmentAnalysis')}
             >
               Investment Analysis
@@ -23,7 +20,7 @@ const ToggleInvestmentForm = ({ setActiveViewInvestment }) => {
           </li>
           <li className="sidebar">
             <button
-              className={activeView === 'investmentForm' ? 'active' : ''}
+              className={activeViewInvestment === 'investmentForm' ? 'active' : ''}
               onClick={() => handleClick('investmentForm')}
             >
               Investment Form
@@ -31,18 +28,6 @@ const ToggleInvestmentForm = ({ setActiveViewInvestment }) => {
           </li>
         </ul>
       </nav>
-
-      <div className="content">
-        {activeView === 'investmentAnalysis' ? (
-          <div>
-            <h1>Investment Analysis</h1>
-          </div>
-        ) : (
-          <div>
-            <h1>Investment Form</h1>
-          </div>
-        )}
-      </div>
     </div>
   );
 };

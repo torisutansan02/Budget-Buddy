@@ -1,6 +1,6 @@
 import { useBudgetsContext } from '../hooks/useBudgetsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './Details.css'
+import './Details.css';
 
 // Date FNS Library
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -34,7 +34,7 @@ const BudgetDetails = ({ budget }) => {
       </p>
       <p>{formatDistanceToNow(new Date(budget.createdAt), { addSuffix: true })}</p>
       <span className="material-symbols-outlined" onClick={handleClick}>
-       🗑️
+        🗑️
       </span>
     </div>
   );

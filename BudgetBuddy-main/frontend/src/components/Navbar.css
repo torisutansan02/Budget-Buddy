@@ -1,60 +1,56 @@
-@media (min-width: 1024px) {
-  header {
-    background: #fff;
-  }
+/* Base styles (shared across all screen sizes) */
+header {
+  background: #fff;
+}
 
+header .container {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: #333;
+  text-decoration: none;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.container h1 {
+  font-size: 16px;
+}
+
+.navbar span {
+  font-size: 12px;
+}
+
+.navbar button {
+  padding: 5px;
+  font-size: 12px;
+}
+
+/* Desktop only overrides */
+@media (min-width: 1024px) {
   header .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  header a {
-    color: #333;
-    text-decoration: none;
-  }
-
-  .navbar {
-    width: 100%;
-  }
-}
-
-@media (max-width: 1023px) {
-  header {
-    background: #fff;
-  }
-
-  header .container {
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  header a {
-    color: #333;
-    text-decoration: none;
-  }
-
-  .navbar {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    font-size: 14px;
   }
 
   .container h1 {
-    font-size: 14px;
+    font-size: 24px;
   }
 
   .navbar span {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .navbar button {
-    padding: 5px;
-    font-size: 12px;
+    font-size: 14px;
+    padding: 8px 12px;
   }
 }
