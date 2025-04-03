@@ -1,8 +1,0 @@
-{
-    "outputDirectory": "frontend/dist",
-    "devCommand": "echo skip vite dev",
-    "rewrites": [
-      { "source": "/api/(.*)", "destination": "/backend/api/$1" }
-    ]
-  }
-  
