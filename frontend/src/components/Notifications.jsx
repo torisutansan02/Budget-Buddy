@@ -31,7 +31,7 @@ const NotificationDetails = ({ notification }) => {
     }
   };
   return (
-    <div className="investment-details">
+    <div className="details">
       <p>
         <strong>{notification.message}</strong>
       </p>

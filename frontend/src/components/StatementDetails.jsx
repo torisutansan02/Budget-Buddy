@@ -37,7 +37,7 @@ const StatementDetails = ({ file }) => {
   const fileDate = safeDate(file.date);
 
   return (
-    <div className="investment-details">
+    <div className="details">
       <h4>{file.title}</h4>
       <p>
         <strong>Amount in $: </strong>
