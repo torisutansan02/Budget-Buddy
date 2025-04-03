@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useBudgetsContext } from '../hooks/useBudgetsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './BudgetForm.css';
+import './Form.css';
 
 const BudgetForm = () => {
   const { budgetDispatch } = useBudgetsContext();

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useInvestmentsContext } from '../hooks/useInvestmentsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './InvestmentForm.css';
+import './Form.css';
 
 const InvestmentForm = () => {
   const { dispatch } = useInvestmentsContext();

@@ -42,7 +42,7 @@ const IncomePieChart = ({ selectedMonth }) => {
   };
 
   return (
-    <Chart chartType="PieChart" data={data} options={options} width="100%" height="400px" />
+    <Chart chartType="PieChart" data={data} options={options} width="100%" height="100%" />
   );
 };
 

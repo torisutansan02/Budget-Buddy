@@ -1,0 +1,70 @@
+/* Default styles (desktop and above 1024px) */
+.details {
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 800px;
+}
+
+.details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+
+.details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.investment-chart-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Styles for screens less than or equal to 1023px */
+@media (max-width: 1023px) {
+  body {
+    width: 100%;
+    overflow-x: hidden;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .investment-chart-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .details h4 {
+    margin: auto;
+    font-size: 1em;
+  }
+
+  .details p {
+    margin: auto;
+    font-size: 0.8em;
+    color: #555;
+  }
+
+  .investment-chart-container {
+    height: 100px;
+    margin: 20px 0;
+    padding: 0 10px;
+  }
+}

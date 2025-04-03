@@ -54,7 +54,7 @@ const StatementDetails = ({ file }) => {
         {createdAtDate ? formatDistanceToNow(createdAtDate, { addSuffix: true }) : 'Invalid date'}
       </p>
       <span className="material-symbols-outlined" onClick={handleClick}>
-        delete
+        🗑️
       </span>
     </div>
   );

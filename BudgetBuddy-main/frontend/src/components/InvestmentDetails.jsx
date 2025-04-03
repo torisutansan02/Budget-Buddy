@@ -3,7 +3,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 
 // Date FNS Library
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import './InvestmentDetails.css';
+import './Details.css';
 
 const InvestmentDetails = ({ investment }) => {
   const { dispatch } = useInvestmentsContext();
@@ -33,7 +33,7 @@ const InvestmentDetails = ({ investment }) => {
 
   return (
     <nav>
-      <div className="investment-details">
+      <div className="details">
         <h4>{investment.title}</h4>
         <p>
           <strong>Amount in $:</strong> {investment.amount}

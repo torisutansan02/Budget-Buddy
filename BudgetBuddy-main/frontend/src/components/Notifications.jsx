@@ -36,7 +36,7 @@ const NotificationDetails = ({ notification }) => {
       </p>
       <p>{formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}</p>
       <span className="material-symbols-outlined" onClick={handleClick}>
-        delete
+        🗑️
       </span>
     </div>
   );

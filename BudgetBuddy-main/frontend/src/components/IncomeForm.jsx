@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useIncomesContext } from '../hooks/useIncomesContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './IncomeForm.css';
+import './Form.css';
 
 const IncomeForm = () => {
   const { incomeDispatch } = useIncomesContext();

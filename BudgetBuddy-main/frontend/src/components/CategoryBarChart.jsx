@@ -40,7 +40,7 @@ const CategoryBarChart = ({ selectedMonth }) => {
   return (
     <div>
       {data.length > 1 ? (
-        <Chart chartType="BarChart" data={data} options={options} width="100%" height="400px" />
+        <Chart chartType="BarChart" data={data} options={options} width="100%" height="100%" />
       ) : (
         <p>Nothing spent for the selected month.</p>
       )}

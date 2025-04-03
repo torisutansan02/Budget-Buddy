@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useInvestmentsContext } from '../hooks/useInvestmentsContext';
 import { useIncomesContext } from '../hooks/useIncomesContext';
 import CategoryBarChart from './CategoryBarChart';
-import './InvestmentForm.css';
+import './Form.css';
 
 const SpendingSummary = () => {
   const months = [
