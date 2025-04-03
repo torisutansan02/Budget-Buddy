@@ -1,3 +1,4 @@
+import React from 'react';
 import { BudgetsContext } from '../context/BudgetContext';
 import { useContext } from 'react';
 

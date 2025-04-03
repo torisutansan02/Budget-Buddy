@@ -1,3 +1,4 @@
+import React from 'react';
 import { IncomesContext } from '../context/IncomeContext';
 import { useContext } from 'react';
 

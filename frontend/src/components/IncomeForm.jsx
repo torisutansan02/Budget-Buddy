@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { useIncomesContext } from '../hooks/useIncomesContext';
 import { useAuthContext } from '../hooks/useAuthContext';

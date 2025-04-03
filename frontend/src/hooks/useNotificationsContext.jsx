@@ -1,3 +1,4 @@
+import React from 'react';
 import { NotificationsContext } from '../context/NotificationContext';
 import { useContext } from 'react';
 

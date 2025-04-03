@@ -1,3 +1,4 @@
+import React from 'react';
 import { useBanksContext } from '../hooks/useBanksContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';

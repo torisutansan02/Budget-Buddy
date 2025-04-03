@@ -1,3 +1,4 @@
+import React from 'react';
 import { useBudgetsContext } from '../hooks/useBudgetsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 import './Details.css';

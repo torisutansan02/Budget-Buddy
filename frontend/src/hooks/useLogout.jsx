@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAuthContext } from './useAuthContext';
 import { useInvestmentsContext } from './useInvestmentsContext';
 
