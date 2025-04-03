@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 // Get all of the investments
 const getNotifications = async (req, res) => {
   const user_id = req.user._id;
-
   const notifications = await Notification.find({ user_id }).sort({ createdAt: -1 });
 
   res.status(200).json(notifications);
