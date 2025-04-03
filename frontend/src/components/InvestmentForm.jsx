@@ -30,7 +30,7 @@ const InvestmentForm = () => {
     // Create the investment object with the necessary fields
     let investment = {
       title,
-      amount,
+      amount: Number(amount),
       investmentType: investmentType === 'other' ? customInvestmentType : investmentType,
       investmentDescription,
       isRecurring,
