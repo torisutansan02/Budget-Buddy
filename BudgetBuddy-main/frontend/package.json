@@ -1,6 +1,5 @@
 {
   "type": "module",
-  "proxy": "http://localhost:4000",
   "homepage": "https://budget-buddy-dusky-sigma.vercel.app/",
   "name": "frontend",
   "version": "1.0.0",
