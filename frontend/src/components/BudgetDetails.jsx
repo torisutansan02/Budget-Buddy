@@ -31,11 +31,10 @@ const BudgetDetails = ({ budget }) => {
   return (
     <div className="details">
       <div className="budget-details">
-        <h1>
-          <strong> Budget in $: </strong> {budget.amount}{' '}
-        </h1>
-        <p>{formatDistanceToNow(new Date(budget.createdAt), { addSuffix: true })}</p>
+        <h1>Budget</h1>
+        <p>${budget.amount}</p>
       </div>
+      <p>{formatDistanceToNow(new Date(budget.createdAt), { addSuffix: true })}</p>
       <span className="material-symbols-outlined" onClick={handleClick}>
         Delete
       </span>

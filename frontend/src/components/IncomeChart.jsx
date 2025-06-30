@@ -36,7 +36,7 @@ const IncomePieChart = ({ selectedMonth }) => {
   const options = {
     title: 'Income By Type',
     backgroundColor: 'transparent',
-    legend: { position: 'left' },
+    legend: { position: 'center' },
     is3D: true,
     pieHole: 0.4,
   };

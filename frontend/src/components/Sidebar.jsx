@@ -11,7 +11,7 @@ const Sidebar = ({ setActiveView, notifications }) => {
   const handleClick = (view) => {
     setActiveView(view);
     setActiveButton(view);
-    setIsOpen(false); // Auto-close on mobile
+    setIsOpen(false);
   };
 
   return (
@@ -24,7 +24,14 @@ const Sidebar = ({ setActiveView, notifications }) => {
       {/* Sidebar */}
       <nav className={`sidebar-container ${isOpen ? 'open' : ''}`}>
         <ul className="sidebar">
-          {['investments', 'budgets', 'incomes', 'statements', 'spendingSummary', 'notifications'].map((item) => (
+          {[
+            'investments',
+            'budgets',
+            'incomes',
+            'statements',
+            'spendingSummary',
+            'notifications',
+          ].map((item) => (
             <li key={item}>
               <button
                 className={activeButton === item ? 'active' : ''}
@@ -33,9 +40,7 @@ const Sidebar = ({ setActiveView, notifications }) => {
                 {item === 'spendingSummary'
                   ? 'Spending Summary'
                   : item.charAt(0).toUpperCase() + item.slice(1)}
-                {item === 'notifications' && hasNotifications && (
-                  <> ({safeNotifications.length})</>
-                )}
+                {item === 'notifications' && hasNotifications && <> ({safeNotifications.length})</>}
               </button>
             </li>
           ))}

@@ -140,8 +140,8 @@ const Home = () => {
         return (
           <div className="home">
             <div className="investments">
-              <h1>Investments</h1>
               <div className="chart">
+                <h1>Investments</h1>
                 <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
                 <InvestmentPieChart selectedMonth={selectedMonth} />
               </div>
@@ -161,8 +161,8 @@ const Home = () => {
         return (
           <div className="home">
             <div className="budgets">
-              <h1>Budget</h1>
               <div className="chart">
+                <h1>Budget</h1>
                 <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
                 <BudgetDiffChart selectedMonth={selectedMonth} />
               </div>
@@ -182,8 +182,8 @@ const Home = () => {
         return (
           <div className="home">
             <div className="incomes">
-              <h1>Income</h1>
               <div className="chart">
+                <h1>Income</h1>
                 <MonthSelect
                   value={selectedMonthStatements}
                   onChange={handleMonthChangeStatements}
@@ -323,45 +323,43 @@ const Home = () => {
 
   return (
     <div className="layout">
-
-      <div className="pages">
-        <div className="cards" id="left-column">
+      <main className="pages">
+        <aside className="cards" id="left-column">
           <Sidebar setActiveView={handleSetActiveView} notifications={notifications} />
-        </div>
-        <div className="cards" id="middle-column">
-          <h1>Account Summary</h1>
-          <p>
-            Your income is currently ${totalIncomeValue} and you spent $
-            {totalStatementValue.toFixed(2)} in {selectedMonthStatements}.
-          </p>
-          <p>
-            You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)} in{' '}
-            {selectedMonthStatements}.
-          </p>
-          <p>
-            Your budget is ${totalBudgetValue} and you plan to spend ${totalInvestmentValue} in{' '}
-            {selectedMonth}.
-          </p>
-          <p>
-            You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)} in{' '}
-            {selectedMonth}.
-          </p>
-          {hasSentNotification && (totalInvestmentValue / totalBudgetValue) * 100 > 75 && (
-            <p style={{ marginTop: '20px', padding: '10px', color: 'red' }}>
-              Your investments are currently{' '}
-              {((totalInvestmentValue / totalBudgetValue) * 100).toFixed(2)}% of your budget.
+        </aside>
+        <section className="cards" id="middle-column">
+          <div className="account-summary">
+            <h1>Account Summary</h1>
+            <p>
+              Your income is currently ${totalIncomeValue} and you spent $
+              {-totalStatementValue.toFixed(2)} in {selectedMonthStatements}.
             </p>
-          )}
-          {renderForm()}
-        </div>
+            <p>
+              You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)} in{' '}
+              {selectedMonthStatements}.
+            </p>
+            <p>
+              Your budget is ${totalBudgetValue} and you plan to spend ${totalInvestmentValue} in{' '}
+              {selectedMonth}.
+            </p>
+            <p>
+              You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)} in{' '}
+              {selectedMonth}.
+            </p>
+            {hasSentNotification && (totalInvestmentValue / totalBudgetValue) * 100 > 75 && (
+              <p style={{ marginTop: '20px', padding: '10px', color: 'red' }}>
+                Your investments are currently{' '}
+                {((totalInvestmentValue / totalBudgetValue) * 100).toFixed(2)}% of your budget.
+              </p>
+            )}
+          </div>
+          <div className="form-box">{renderForm()}</div>
+        </section>
 
-        <div className="cards" id="right-column">
+        <aside className="cards" id="right-column">
           {renderView()}
-        </div>
-      </div>
-
-      {/* Optional right column */}
-      {/* <div className="right-column">Something here</div> */}
+        </aside>
+      </main>
     </div>
   );
 };

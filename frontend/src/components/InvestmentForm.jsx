@@ -131,7 +131,7 @@ const InvestmentForm = () => {
 
       <label>Is this a recurring payment?</label>
       <input
-        style={{ width: '30px', height: '30px' }}
+        style={{ width: '2rem', height: '2rem' }}
         type="checkbox"
         onChange={(e) => setIsRecurring(e.target.checked)}
         checked={isRecurring}

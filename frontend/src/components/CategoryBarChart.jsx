@@ -33,12 +33,10 @@ const CategoryBarChart = ({ selectedMonth }) => {
     title: 'Spending By Type',
     backgroundColor: 'transparent',
     legend: { position: 'left' },
-    hAxis: { title: 'Amount' },
-    vAxis: { title: 'Investment Type' },
   };
 
   return (
-    <div className="inner-chart">
+    <div>
       {data.length > 1 ? (
         <Chart chartType="BarChart" data={data} options={options} width="100%" height="100%" />
       ) : (

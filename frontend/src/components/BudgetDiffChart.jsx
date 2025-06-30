@@ -36,24 +36,20 @@ const BudgetDiffChart = ({ selectedMonth }) => {
     0
   );
 
-  const oldData = [
-    ['Category', 'Investment'],
-    ['Total Budget', totalBudget],
-  ];
-
-  const newData = [
-    ['Category', 'Investment'],
-    ['Total Investment', totalInvestment],
-  ];
-
   const options = {
     title: 'Budget vs Investment',
     backgroundColor: 'transparent',
     isStacked: true,
     colors: totalInvestment > totalBudget ? ['red'] : ['green'],
     legend: {
-      position: 'top',
-      textStyle: { fontSize: 15 },
+      position: 'left',
+      textStyle: { fontSize: 12 },
+    },
+    titleTextStyle: {
+      fontSize: 14,
+      bold: true,
+      italic: false,
+      color: '#333',
     },
   };
 
@@ -61,7 +57,11 @@ const BudgetDiffChart = ({ selectedMonth }) => {
     <div className="inner-chart">
       <Chart
         chartType="ColumnChart"
-        diffdata={{ old: oldData, new: newData }}
+        data={[
+          ['Category', 'Amount'],
+          ['Total Budget', totalBudget],
+          ['Total Investment', totalInvestment],
+        ]}
         options={options}
         width="100%"
         height="100%"

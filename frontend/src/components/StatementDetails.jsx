@@ -40,8 +40,7 @@ const StatementDetails = ({ file }) => {
     <div className="details">
       <div className="statement-info">
         <h1>
-          <strong>Amount in $: </strong>
-          {file.amount}
+          <strong>${file.amount} </strong>
         </h1>
         <p>
           <strong>Description: </strong>

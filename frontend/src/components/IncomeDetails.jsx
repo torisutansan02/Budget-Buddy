@@ -32,9 +32,7 @@ const IncomeDetails = ({ income }) => {
     <div className="details">
       <div className="income-info">
         <h1>{income.incomeType}</h1>
-        <p>
-          <strong> Amount in $: </strong> {income.amount}
-        </p>
+        <p>${income.amount}</p>
       </div>
       <p>{formatDistanceToNow(new Date(income.createdAt), { addSuffix: true })}</p>
       <span className="material-symbols-outlined" onClick={handleClick}>

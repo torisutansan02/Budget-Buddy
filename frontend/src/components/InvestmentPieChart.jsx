@@ -30,9 +30,10 @@ const InvestmentPieChart = ({ selectedMonth }) => {
   ];
 
   const options = {
+    title: 'Investments',
     backgroundColor: 'transparent',
-    legend: { position: 'left' },
-    is3D: false,
+    legend: { position: 'center' },
+    is3D: true,
     pieHole: 0.4,
   };
 

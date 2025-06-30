@@ -36,30 +36,30 @@ const InvestmentDetails = ({ investment }) => {
     <nav>
       <div className="details">
         <div className="investment-info">
-                  <h1>{investment.title}</h1>
-        <p>
-          <strong>Amount in $:</strong> {investment.amount}
-        </p>
-        <p>
-          <strong>Type:</strong> {investment.investmentType}
-        </p>
-        <p>
-          <strong>Description:</strong> {investment.investmentDescription}
-        </p>
+          <h1>{investment.title}</h1>
+          <p>
+            <strong>Amount:</strong> ${investment.amount}
+          </p>
+          <p>
+            <strong>Type:</strong> {investment.investmentType}
+          </p>
+          <p>
+            <strong>Description:</strong> {investment.investmentDescription}
+          </p>
 
-        {investment.isRecurring && (
-          <>
-            <p>
-              <strong>Recurring:</strong> Yes
-            </p>
-            <p>
-              <strong>Frequency:</strong> {investment.recurrenceFrequency}
-            </p>
-            <p>
-              <strong>Start Date:</strong> {new Date(investment.startDate).toLocaleDateString()}
-            </p>
-          </>
-        )}
+          {investment.isRecurring && (
+            <>
+              <p>
+                <strong>Recurring:</strong> Yes
+              </p>
+              <p>
+                <strong>Frequency:</strong> {investment.recurrenceFrequency}
+              </p>
+              <p>
+                <strong>Start Date:</strong> {new Date(investment.startDate).toLocaleDateString()}
+              </p>
+            </>
+          )}
         </div>
 
         <p>{formatDistanceToNow(new Date(investment.createdAt), { addSuffix: true })}</p>

@@ -46,65 +46,49 @@
 
 /* Mobile styles */
 @media (max-width: 1023px) {
-/* Ensure hamburger is always on top */
-.hamburger {
-  position: fixed;
-  display: block;
-  top: 0;
-  left: 0;
-  background-color: #caffdd;
-  width: 100%;
-  font-size: 2rem;
-  text-align: left;
-  z-index: 9999; /* HIGHER than sidebar */
-}
+  .hamburger {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    background-color: #caffdd;
+    width: 100%;
+    font-size: 2rem;
+    text-align: left;
+    z-index: 1001;
+    border: none;
+    cursor: pointer;
+    border-bottom: 0.2rem solid #caffdd;
+  }
 
-/* Sidebar hidden offscreen */
-.sidebar-container {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 250px;
-  background-color: #caffdd;
-  transition: left 0.3s ease-in-out;
-  z-index: 1000;
-  pointer-events: none; /* Prevents blocking clicks */
-}
+  .sidebar-container {
+    position: fixed;
+    top: 5rem;
+    left: 0;
+    width: 100%;
+    background-color: #caffdd;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
 
-/* Sidebar active (slide-in) */
-.sidebar-container.open {
-  left: 0;
-  pointer-events: auto; /* Restores interactivity */
-}
+  .sidebar-container.open {
+    transform: translateX(0);
+  }
 
-/* Sidebar content */
-.sidebar {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
+  .sidebar button {
+    background-color: #caffdd;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    width: 100vw; /* Full screen width */
+    padding: 1rem; /* Reapply padding */
+    box-sizing: border-box;
+  }
 
-.sidebar li {
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar button {
-  all: unset;
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  font-size: 1rem;
-  color: black;
-  text-align: left;
-  background-color: #caffdd;
-  cursor: pointer;
-}
-
-.sidebar button:hover,
-.sidebar button.active {
-  background-color: #97ffbd;
-}
-
+  .sidebar button:hover,
+  .sidebar button.active {
+    background-color: #97ffbd;
+    width: 100vw;
+  }
 }

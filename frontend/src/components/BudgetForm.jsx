@@ -47,7 +47,7 @@ const BudgetForm = () => {
     <form className="create" onSubmit={handleSubmit}>
       <h3> Add a New Budget</h3>
 
-      <label> Budget in $: </label>
+      <label> Budget: $ </label>
       <input
         type="number"
         onChange={(e) => setAmount(e.target.value)}
