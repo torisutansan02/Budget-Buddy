@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   useInvestmentsContext,
   useBudgetsContext,
@@ -7,7 +8,6 @@ import {
   useNotificationsContext,
   useAuthContext,
 } from '../hooks';
-
 import {
   Sidebar,
   ToggleInvestmentForm,
@@ -25,6 +25,8 @@ import {
   BudgetDiffChart,
   IncomePieChart,
 } from '../components';
+import { isTokenExpired } from '../utils/isTokenExpired';
+import { fetchWithAuth } from '../utils/fetchWithAuth';
 
 const capitalizeFirstLetter = (string) =>
   typeof string === 'string'
@@ -55,29 +57,30 @@ const renderItems = (items, renderItem, emptyMsg) =>
 const Home = () => {
   const now = new Date();
   const currentMonth = months[now.getMonth()];
+  const navigate = useNavigate();
 
   const [activeView, setActiveView] = useState('neither');
   const [activeViewInvestment, setActiveViewInvestment] = useState('investmentAnalysis');
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedMonthStatements, setSelectedMonthStatements] = useState(currentMonth);
 
-  const { investments, dispatch } = useInvestmentsContext();
-  const { budgets, budgetDispatch } = useBudgetsContext();
-  const { incomes, incomeDispatch } = useIncomesContext();
-  const { files, fileDispatch } = useBanksContext();
-  const { notifications, notificationDispatch } = useNotificationsContext();
-  const { user } = useAuthContext();
+  const { investments = [], dispatch } = useInvestmentsContext();
+  const { budgets = [], budgetDispatch } = useBudgetsContext();
+  const { incomes = [], incomeDispatch } = useIncomesContext();
+  const { files = [], fileDispatch } = useBanksContext();
+  const { notifications = [], notificationDispatch } = useNotificationsContext();
+  const { user, dispatch: authDispatch } = useAuthContext();
 
   const hasSentNotification = localStorage.getItem('hasSentNotification') === 'true';
 
   const useMonthlyFilter = (data, month, dateKey = 'createdAt') =>
     useMemo(
       () =>
-        data?.filter((item) =>
+        (data || []).filter((item) =>
           capitalizeFirstLetter(
             new Date(item[dateKey]).toLocaleString('default', { month: 'long' })
           ) === capitalizeFirstLetter(month)
-        ) || [],
+        ),
       [data, month]
     );
 
@@ -171,7 +174,7 @@ const Home = () => {
         return (
           <div className="home">
             <div className="investments">
-              {notifications?.map((n) => (
+              {notifications.map((n) => (
                 <NotificationDetails key={n._id} notification={n} />
               ))}
             </div>
@@ -210,8 +213,14 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (!user || isTokenExpired(user.token)) {
+      localStorage.removeItem('user');
+      authDispatch({ type: 'LOGOUT' });
+      navigate('/login');
+      return;
+    }
+
     const fetchData = async () => {
-      if (!user) return;
       const endpoints = [
         { url: '/api/investments', dispatch, type: 'SET_INVESTMENTS' },
         { url: '/api/budgets', dispatch: budgetDispatch, type: 'SET_BUDGETS' },
@@ -219,14 +228,22 @@ const Home = () => {
         { url: '/api/banks', dispatch: fileDispatch, type: 'SET_FILES' },
         { url: '/api/notifications', dispatch: notificationDispatch, type: 'SET_NOTIFICATIONS' },
       ];
+
       for (const { url, dispatch, type } of endpoints) {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
-          headers: { Authorization: `Bearer ${user.token}` },
-        });
-        const json = await res.json();
-        if (res.ok) dispatch({ type, payload: json });
+        const data = await fetchWithAuth(
+          `${import.meta.env.VITE_API_URL}${url}`,
+          user.token,
+          {},
+          () => {
+            localStorage.removeItem('user');
+            authDispatch({ type: 'LOGOUT' });
+            navigate('/login');
+          }
+        );
+        if (data) dispatch({ type, payload: data });
       }
     };
+
     fetchData();
   }, [user]);
 
