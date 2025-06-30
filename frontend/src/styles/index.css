@@ -1,42 +1,52 @@
+/* === Base Styles (Desktop First) === */
+
 * {
   font-family: 'Noto Sans JP', sans-serif;
+  box-sizing: border-box;
 }
 
 body {
   background: rgb(56, 56, 56);
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .layout {
-  min-height: 100vh; /* full viewport height */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .pages {
   display: flex;
-  gap: 1rem;
-}
-
-#left-column,
-#right-column {
-  width: 35rem;
-}
-
-#main-column {
-  width: 35rem;
+  gap: 2rem;
+  padding: 1rem;
 }
 
 .cards {
-  height: fit-content;
   background-color: rgb(150, 220, 255);
   border-radius: 1rem;
   box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.5);
-  margin: 2rem;
   padding: 2rem;
+  margin: 1rem;
+  width: 100%;
+  height: fit-content;
+}
+
+#left-column {
+  width: 10rem;
+  background-color: rgb(199, 255, 224);
+  margin: 1rem;
+  padding: 0;
+}
+
+#main-column {
+  width: 30rem;
 }
 
 #right-column {
+  width: 40rem;
   background-color: rgb(224, 157, 253);
 }
 
@@ -45,7 +55,8 @@ body {
   box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
   padding: 2rem;
-  margin: 2rem;
+  margin: 2rem 0;
+  overflow-x: auto;
 }
 
 .inner-chart {
@@ -53,10 +64,10 @@ body {
 }
 
 input {
+  width: 100%;
   padding: 10px;
-  border: var(--input-border);
-  border-radius: var(--radius);
-  box-sizing: border-box;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
 }
 
 input.error {
@@ -82,7 +93,7 @@ nav a {
 }
 
 nav button {
-  background: white;
+  background: rgb(171, 154, 154);
   color: var(--primary);
   border: 1.3px solid var(--primary);
   border-radius: var(--radius);
@@ -102,7 +113,7 @@ form.login {
 }
 
 .userauth {
-  width: 50%;
+  width: 100%;
   padding: 10px;
   font-size: 16px;
   margin-top: 10px;
@@ -112,25 +123,55 @@ form.login {
   cursor: pointer;
 }
 
+/* === Sidebar Styles === */
+.sidebar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #caffdd;
+  width: 100%;
+}
+
+.sidebar li {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar button {
+  all: unset;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  color: black;
+  text-align: left;
+  background-color: #caffdd;
+  cursor: pointer;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  background-color: #97ffbd;
+}
+
+/* === Mobile/Tablet === */
 @media (max-width: 1023px) {
-  * {
-    font-size: 100%;
-  }
-  p {
-    font-size: 90%;
+  html {
+    font-size: 0.8rem;
   }
 
   .pages {
     flex-direction: column;
-    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
   }
 
   #left-column,
   #right-column,
   #main-column {
+    width: 100%;
+    margin: 0;
     text-align: center;
-    width: 65%;
-    margin: 0 auto;
   }
 
   .cards {
@@ -139,8 +180,20 @@ form.login {
   }
 
   .chart {
-    width: 85%;
     padding: 1rem;
     margin: 1rem 0;
+  }
+
+  form.signup,
+  form.login {
+    max-width: 90vw;
+  }
+
+  .sidebar-container {
+    display: none;
+  }
+
+  .sidebar-container.active {
+    display: block;
   }
 }

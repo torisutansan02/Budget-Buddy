@@ -323,10 +323,12 @@ const Home = () => {
 
   return (
     <div className="layout">
-      <Sidebar setActiveView={handleSetActiveView} notifications={notifications} />
 
       <div className="pages">
         <div className="cards" id="left-column">
+          <Sidebar setActiveView={handleSetActiveView} notifications={notifications} />
+        </div>
+        <div className="cards" id="middle-column">
           <h1>Account Summary</h1>
           <p>
             Your income is currently ${totalIncomeValue} and you spent $

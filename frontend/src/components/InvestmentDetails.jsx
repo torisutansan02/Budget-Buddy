@@ -35,7 +35,8 @@ const InvestmentDetails = ({ investment }) => {
   return (
     <nav>
       <div className="details">
-        <h4>{investment.title}</h4>
+        <div className="investment-info">
+                  <h1>{investment.title}</h1>
         <p>
           <strong>Amount in $:</strong> {investment.amount}
         </p>
@@ -59,10 +60,11 @@ const InvestmentDetails = ({ investment }) => {
             </p>
           </>
         )}
+        </div>
 
         <p>{formatDistanceToNow(new Date(investment.createdAt), { addSuffix: true })}</p>
         <span className="material-symbols-outlined" onClick={handleClick}>
-          🗑️
+          Delete
         </span>
       </div>
     </nav>

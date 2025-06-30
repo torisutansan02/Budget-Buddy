@@ -2,77 +2,46 @@ import React, { useState } from 'react';
 import '../styles/Sidebar.css';
 
 const Sidebar = ({ setActiveView, notifications }) => {
-  const [activeButton, setActiveButton] = useState('investments'); // State to track the active button
+  const [activeButton, setActiveButton] = useState('investments');
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Ensure notifications is always an array before accessing its properties
   const safeNotifications = notifications || [];
-  const hasNotifications = safeNotifications.length > 0; // Check if there are any notifications
+  const hasNotifications = safeNotifications.length > 0;
 
   const handleClick = (view) => {
     setActiveView(view);
-    setActiveButton(view); // Set the clicked button as active
-  };
-
-  // Dynamic styles for buttons
-  const getButtonStyle = (view) => {
-    let baseStyle = {
-      padding: '10px 20px',
-      backgroundColor: activeButton === view ? 'grey' : 'white', // Active button turns grey
-      color: activeButton === view ? 'white' : 'green', // Active button text turns white
-      border: 'none',
-      cursor: 'pointer',
-    };
-
-    // Apply additional styles for the notifications button if there are notifications
-    if (view === 'notifications' && hasNotifications) {
-      baseStyle.backgroundColor = activeButton === view ? 'grey' : 'red'; // Red when there are notifications
-      baseStyle.color = 'white'; // White text for visibility
-    }
-
-    return baseStyle;
+    setActiveButton(view);
+    setIsOpen(false); // Auto-close on mobile
   };
 
   return (
-    <nav>
-      <ul className="sidebar">
-        <li className="sidebar">
-          <button style={getButtonStyle('investments')} onClick={() => handleClick('investments')}>
-            Investments
-          </button>
-        </li>
-        <li className="sidebar">
-          <button style={getButtonStyle('budgets')} onClick={() => handleClick('budgets')}>
-            Budgets
-          </button>
-        </li>
-        <li className="sidebar">
-          <button style={getButtonStyle('incomes')} onClick={() => handleClick('incomes')}>
-            Incomes
-          </button>
-        </li>
-        <li className="sidebar">
-          <button style={getButtonStyle('statements')} onClick={() => handleClick('statements')}>
-            Statements
-          </button>
-        </li>
-        <li className="sidebar">
-          <button
-            style={getButtonStyle('spendingSummary')}
-            onClick={() => handleClick('spendingSummary')}
-          >
-            Spending Summary
-          </button>
-        </li>
-        <li className="sidebar">
-          <button
-            style={getButtonStyle('notifications')}
-            onClick={() => handleClick('notifications')}
-          >
-            Notifications {hasNotifications && <span>({safeNotifications.length})</span>}
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <>
+      {/* Hamburger icon (mobile only) */}
+      <button className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+        ☰
+      </button>
+
+      {/* Sidebar */}
+      <nav className={`sidebar-container ${isOpen ? 'open' : ''}`}>
+        <ul className="sidebar">
+          {['investments', 'budgets', 'incomes', 'statements', 'spendingSummary', 'notifications'].map((item) => (
+            <li key={item}>
+              <button
+                className={activeButton === item ? 'active' : ''}
+                onClick={() => handleClick(item)}
+              >
+                {item === 'spendingSummary'
+                  ? 'Spending Summary'
+                  : item.charAt(0).toUpperCase() + item.slice(1)}
+                {item === 'notifications' && hasNotifications && (
+                  <> ({safeNotifications.length})</>
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 };
 

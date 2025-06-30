@@ -1,45 +1,110 @@
-/* Base styles (shared across all screen sizes) */
+/* Base styles for sidebar */
+.sidebar-container {
+  background-color: #caffdd;
+}
+
+/* Show sidebar by default on desktop */
 .sidebar {
   list-style: none;
-  background: rgb(54, 255, 191);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 20px;
+  padding: 0;
+  margin: 0;
+  width: 250px;
+  background-color: #caffdd;
 }
 
 .sidebar li {
-  padding: 5px;
-  margin: 5px;
-  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .sidebar button {
-  border-radius: 1rem;
+  all: unset;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  text-align: left;
+  background-color: #caffdd;
+  cursor: pointer;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  background-color: #97ffbd;
+}
+
+/* Hamburger is hidden by default (visible only on mobile) */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  padding: 1rem;
+  background: none;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
 }
 
-.sidebar button.active {
-  color: white;
-}
-
-/* Desktop (override layout) */
-@media (min-width: 1024px) {
-  .sidebar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-}
-
-/* Mobile / tablet (override layout) */
+/* Mobile styles */
 @media (max-width: 1023px) {
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    font-size: 1rem;
-  }
+/* Ensure hamburger is always on top */
+.hamburger {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  background-color: #caffdd;
+  width: 100%;
+  font-size: 2rem;
+  text-align: left;
+  z-index: 9999; /* HIGHER than sidebar */
+}
+
+/* Sidebar hidden offscreen */
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 250px;
+  background-color: #caffdd;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+  pointer-events: none; /* Prevents blocking clicks */
+}
+
+/* Sidebar active (slide-in) */
+.sidebar-container.open {
+  left: 0;
+  pointer-events: auto; /* Restores interactivity */
+}
+
+/* Sidebar content */
+.sidebar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar li {
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar button {
+  all: unset;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  color: black;
+  text-align: left;
+  background-color: #caffdd;
+  cursor: pointer;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  background-color: #97ffbd;
+}
+
 }

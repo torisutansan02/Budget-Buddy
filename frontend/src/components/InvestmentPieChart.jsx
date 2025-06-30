@@ -37,7 +37,7 @@ const InvestmentPieChart = ({ selectedMonth }) => {
   };
 
   return (
-    <div className="chart">
+    <div className="inner-chart">
       <Chart chartType="PieChart" data={data} options={options} width="100%" height="100%" />
     </div>
   );

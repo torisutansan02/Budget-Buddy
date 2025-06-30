@@ -41,6 +41,7 @@ header a {
 
 @media (max-width: 1023px) {
   header .container {
+    margin-top: 7rem;
     padding: 1rem 1rem 1rem 1rem;
     display: flex;
     justify-content: space-between;
