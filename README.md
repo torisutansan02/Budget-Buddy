@@ -9,46 +9,58 @@ A financial tracker that allows the user to track and interact with their financ
 
 ## Build
 
-- Install VSCode IDE or an IDE of your choice.
-- Install Node.js.
-- Create a folder, open the folder, and open a terminal on your IDE.
+- Install `IDE` of your choice.
+- Install `Node.js`.
 - Clone the repository.
+- Open the repository on your IDE.
+- Refer to `frontend` and `backend` directories for:
+    - Installing dependencies and development commands.
 
 ## Installation
 
-- After cloning the repository, open a new terminal.
-- Run the command `cd backend` and then run `npm i`.
-- Open a new separate terminal.
-- Run the command `cd frontend` and then run `npm i`.
-- Ensure you have a .env file in the backend.
-- The .env file needs values of PORT=4000, MONGO_URI=your_uri, SECRET=your_secret_key.
-- Create a MongoDB cluster and get a connection string for your URI.
-- Run the command below to create a secret key.
-- `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
-- You have successfully installed the dependencies and the app is ready to start.
+- Clone the repository.
+- Ensure you have Node.js installed.
+- Open an IDE like VSCode, and open the folder with this repository.
+- Run a new terminal, and use a CLI like Git Bash.
+- Ensure you have three terminals open.
+    - Change directory to `frontend` in one terminal.
+    - Change directory to `backend` in another terminal.
+    - Keep one terminal in the outermost directory.
+- Env File Setup (Frontend):
+    - In the `frontend` directory, create files `.env` and `.env.production`.
+        - `.env` contains `VITE_API_URL=http://localhost:4000`.
+        - `.env.production` contains `VITE_API_URL={SECRET URL}`.
+- Env File Setup (Backend):
+    - In the `backend` directory, create file `.env`.
+        - `.env` contains `PORT=4000`, `MONGO_URI={SECRET URI}`, and `SECRET={SECRET KEY}`.
+        - Run the command below to generate a secret key:
+            - `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
+- Afterwards, refer to the README files to install dependencies for the frontend and backend directories.
+- You should now be able to run the development server for both the frontend and backend.
 
 ## Usage
 
-- After installing the dependencies, remain on the frontend and backend.
-- Run the command `node server.js` while in the directory backend.
-- You should be on PORT 4000 and connected to MongoDB successfully.
-- Run the command `npm start` in the directory frontend.
-- The webpage should successfully have all correct dependencies and you should be running on http://localhost:3000/
-- From here, sign up and create an account. By signing up, you have access to all protected routes.
-- You can now use the Budget Buddy web application.
+- TODO: Write effective documentation on how to use the app.
 
 ## Functional Features
 
-- User registration.
-- User login and logout.
-- Add incomes or expenses.
-- Categorize incomes and expenses.
-- Add recurring transactions.
-- Set and track budgets.
-- Alerts and notifications.
-- Set and track savings goals.
-- Generate visual financial reports as a bar graph or pie chart.
-- Import data in consistent format (CSV).
+- User Authentication / Authorization.
+    - JWT.
+- CRUD Investments.
+    - Query Investments.
+- CRUD Incomes.
+    - Query Incomes.
+- CRUD Budgets.
+    - Query Budgets.
+- PATCH Notifications.
+    - Query Notifications.
+- Query DB Models for Tracking Summary.
+    - Monthly and Yearly.
+- Visualize Financial Reports.
+    - Bar Graph.
+    - Pie Chart.
+- Import Bank Statements.
+    - QFX.
 
 ## User Stories
 
