@@ -55,7 +55,6 @@
     width: 100%;
     font-size: 2rem;
     text-align: left;
-    z-index: 1001;
     border: none;
     cursor: pointer;
     border-bottom: 0.2rem solid #caffdd;
@@ -69,7 +68,6 @@
     background-color: #caffdd;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
-    z-index: 1000;
   }
 
   .sidebar-container.open {
