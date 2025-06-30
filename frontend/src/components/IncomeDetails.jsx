@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIncomesContext } from '../hooks/useIncomesContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './Details.css';
+import '../styles/Details.css';
 
 // Date FNS Library
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -30,13 +30,15 @@ const IncomeDetails = ({ income }) => {
   };
   return (
     <div className="details">
-      <h4>{income.incomeType}</h4>
-      <p>
-        <strong> Amount in $: </strong> {income.amount}
-      </p>
+      <div className="income-info">
+        <h1>{income.incomeType}</h1>
+        <p>
+          <strong> Amount in $: </strong> {income.amount}
+        </p>
+      </div>
       <p>{formatDistanceToNow(new Date(income.createdAt), { addSuffix: true })}</p>
       <span className="material-symbols-outlined" onClick={handleClick}>
-        🗑️
+        Delete
       </span>
     </div>
   );

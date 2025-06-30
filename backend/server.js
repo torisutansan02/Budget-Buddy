@@ -43,7 +43,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // Health check
 app.get('/', (req, res) => {
   res.send('🚀 Budget Buddy API is running!');
@@ -90,8 +89,7 @@ if (require.main === module) {
                 shouldCreateEntry = now.getDate() === startDate.getDate();
               } else if (investment.recurrenceFrequency === 'yearly' && now > startDate) {
                 shouldCreateEntry =
-                  now.getMonth() === startDate.getMonth() &&
-                  now.getDate() === startDate.getDate();
+                  now.getMonth() === startDate.getMonth() && now.getDate() === startDate.getDate();
               }
 
               if (shouldCreateEntry) {

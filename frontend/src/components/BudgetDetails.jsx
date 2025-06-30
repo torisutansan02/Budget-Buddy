@@ -1,7 +1,7 @@
 import React from 'react';
 import { useBudgetsContext } from '../hooks/useBudgetsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './Details.css';
+import '../styles/Details.css';
 
 // Date FNS Library
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -30,12 +30,14 @@ const BudgetDetails = ({ budget }) => {
   };
   return (
     <div className="details">
-      <p>
-        <strong> Budget in $: </strong> {budget.amount}{' '}
-      </p>
-      <p>{formatDistanceToNow(new Date(budget.createdAt), { addSuffix: true })}</p>
+      <div className="budget-details">
+        <h1>
+          <strong> Budget in $: </strong> {budget.amount}{' '}
+        </h1>
+        <p>{formatDistanceToNow(new Date(budget.createdAt), { addSuffix: true })}</p>
+      </div>
       <span className="material-symbols-outlined" onClick={handleClick}>
-        🗑️
+        Delete
       </span>
     </div>
   );

@@ -1,5 +1,4 @@
 export { default as Sidebar } from './Sidebar';
-export { default as ToggleInvestmentForm } from './ToggleInvestmentForm';
 export { default as InvestmentDetails } from './InvestmentDetails';
 export { default as InvestmentForm } from './InvestmentForm';
 export { default as BudgetDetails } from './BudgetDetails';

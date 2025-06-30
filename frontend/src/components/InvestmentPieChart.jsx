@@ -36,7 +36,11 @@ const InvestmentPieChart = ({ selectedMonth }) => {
     pieHole: 0.4,
   };
 
-  return <Chart chartType="PieChart" data={data} options={options} width="100%" height="100%" />;
+  return (
+    <div className="chart">
+      <Chart chartType="PieChart" data={data} options={options} width="100%" height="100%" />
+    </div>
+  );
 };
 
 export default InvestmentPieChart;

@@ -1,0 +1,146 @@
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  background: rgb(56, 56, 56);
+  height: 100%;
+}
+
+.layout {
+  min-height: 100vh; /* full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.pages {
+  display: flex;
+  gap: 1rem;
+}
+
+#left-column,
+#right-column {
+  width: 35rem;
+}
+
+#main-column {
+  width: 35rem;
+}
+
+.cards {
+  height: fit-content;
+  background-color: rgb(150, 220, 255);
+  border-radius: 1rem;
+  box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.5);
+  margin: 2rem;
+  padding: 2rem;
+}
+
+#right-column {
+  background-color: rgb(224, 157, 253);
+}
+
+.chart {
+  background-color: rgb(255, 214, 241);
+  box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+.inner-chart {
+  margin-top: 2rem;
+}
+
+input {
+  padding: 10px;
+  border: var(--input-border);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+input.error {
+  border: 1px solid var(--error);
+}
+
+div.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: var(--radius);
+  margin: 20px 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  margin-left: 10px;
+}
+
+nav button {
+  background: white;
+  color: var(--primary);
+  border: 1.3px solid var(--primary);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1em;
+  margin-left: 0.5em;
+}
+
+form.signup,
+form.login {
+  text-align: center;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: var(--radius);
+}
+
+.userauth {
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 1023px) {
+  * {
+    font-size: 100%;
+  }
+  p {
+    font-size: 90%;
+  }
+
+  .pages {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #left-column,
+  #right-column,
+  #main-column {
+    text-align: center;
+    width: 65%;
+    margin: 0 auto;
+  }
+
+  .cards {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .chart {
+    width: 85%;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+}

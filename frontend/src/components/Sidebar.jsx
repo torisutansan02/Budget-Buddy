@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Sidebar.css';
+import '../styles/Sidebar.css';
 
 const Sidebar = ({ setActiveView, notifications }) => {
   const [activeButton, setActiveButton] = useState('investments'); // State to track the active button

@@ -38,7 +38,7 @@ const CategoryBarChart = ({ selectedMonth }) => {
   };
 
   return (
-    <div>
+    <div className="inner-chart">
       {data.length > 1 ? (
         <Chart chartType="BarChart" data={data} options={options} width="100%" height="100%" />
       ) : (

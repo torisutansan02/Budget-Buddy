@@ -1,0 +1,80 @@
+/* Base styles (shared across all screen sizes) */
+
+.scroll {
+  margin-top: 1rem;
+  max-height: 30rem; /* or any height you want */
+  overflow-y: auto;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(228, 184, 255);
+  padding: 1rem;
+}
+
+.details:hover {
+  background-color: rgb(193, 193, 193);
+}
+
+.details h1 {
+  font-size: 1.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.details p {
+  font-size: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.details .material-symbols-outlined {
+  background-color: rgb(255, 199, 199);
+  font-size: 1rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.details .material-symbols-outlined:hover {
+  background-color: rgb(255, 168, 168);
+}
+
+.create input {
+  display: block;
+  margin-bottom: 1rem; /* adjust spacing */
+}
+
+.create button {
+  margin-top: 0.5rem;
+}
+
+/* Responsive overrides (mobile and tablets) */
+@media (max-width: 1023px) {
+  body {
+    width: 100%;
+    overflow-x: hidden;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+  }
+
+  .details h4 {
+    font-size: 1em;
+    text-align: center;
+  }
+
+  .details p {
+    font-size: 0.8em;
+    text-align: center;
+  }
+}

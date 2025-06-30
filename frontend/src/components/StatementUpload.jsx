@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useBanksContext } from '../hooks/useBanksContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './StatementUpload.css';
+import '../styles/StatementUpload.css';
 
 const StatementUpload = () => {
   const { fileDispatch } = useBanksContext();

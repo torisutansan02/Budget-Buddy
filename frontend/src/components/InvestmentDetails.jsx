@@ -4,10 +4,10 @@ import { useAuthContext } from '../hooks/useAuthContext';
 
 // Date FNS Library
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import './Details.css';
+import '../styles/Details.css';
 
 const InvestmentDetails = ({ investment }) => {
-  const { dispatch } = useInvestmentsContext();
+  const { investmentDispatch } = useInvestmentsContext();
   const { user } = useAuthContext();
 
   const handleClick = async () => {
@@ -28,7 +28,7 @@ const InvestmentDetails = ({ investment }) => {
     const json = await response.json();
 
     if (response.ok) {
-      dispatch({ type: 'DELETE_INVESTMENT', payload: json });
+      investmentDispatch({ type: 'DELETE_INVESTMENT', payload: json });
     }
   };
 

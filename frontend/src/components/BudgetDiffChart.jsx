@@ -58,7 +58,7 @@ const BudgetDiffChart = ({ selectedMonth }) => {
   };
 
   return (
-    <div>
+    <div className="inner-chart">
       <Chart
         chartType="ColumnChart"
         diffdata={{ old: oldData, new: newData }}

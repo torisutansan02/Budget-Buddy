@@ -27,7 +27,7 @@ export const filesReducer = (state, action) => {
 
 export const BanksContextProvider = ({ children }) => {
   const [state, fileDispatch] = useReducer(filesReducer, {
-    files: [], // Initialize as an empty array
+    files: [],
   });
 
   return (

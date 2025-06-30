@@ -23,12 +23,12 @@ export const investmentsReducer = (state, action) => {
 };
 
 export const InvestmentsContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(investmentsReducer, {
+  const [state, investmentDispatch] = useReducer(investmentsReducer, {
     investments: null,
   });
 
   return (
-    <InvestmentsContext.Provider value={{ ...state, dispatch }}>
+    <InvestmentsContext.Provider value={{ ...state, investmentDispatch }}>
       {children}
     </InvestmentsContext.Provider>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useIncomesContext } from '../hooks/useIncomesContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './Form.css';
+import '../styles/Form.css';
 
 const IncomeForm = () => {
   const { incomeDispatch } = useIncomesContext();
@@ -49,15 +49,6 @@ const IncomeForm = () => {
     <form className="create" onSubmit={handleSubmit}>
       <h3> Add a New Income Source </h3>
 
-      <label> Amount in $: </label>
-      <input
-        type="number"
-        onChange={(e) => setAmount(e.target.value)}
-        value={amount}
-        min="0"
-        className={emptyFields.includes('amount') ? 'error' : ''}
-      />
-
       <label> Income Type: </label>
       <select
         onChange={(e) => setIncomeType(e.target.value)}
@@ -68,6 +59,15 @@ const IncomeForm = () => {
         <option value="Active"> Active </option>
         <option value="Passive"> Passive </option>
       </select>
+
+      <label> Amount in $: </label>
+      <input
+        type="number"
+        onChange={(e) => setAmount(e.target.value)}
+        value={amount}
+        min="0"
+        className={emptyFields.includes('amount') ? 'error' : ''}
+      />
 
       <button> Add Income </button>
       {error && <div className="error"> {error} </div>}

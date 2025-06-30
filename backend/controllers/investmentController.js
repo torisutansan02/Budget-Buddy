@@ -1,5 +1,4 @@
 const Investment = require('../models/investmentModel');
-const Budget = require('../models/budgetModel');
 const mongoose = require('mongoose');
 
 // Get all of the investments
@@ -54,54 +53,13 @@ const createInvestment = async (req, res) => {
   }
 
   if (emptyFields.length > 0) {
-    return res
-      .status(400)
-      .json({ error: 'Please fill in all the fields', emptyFields });
+    return res.status(400).json({ error: 'Please fill in all the fields', emptyFields });
   }
 
   try {
     const user_id = req.user._id;
 
-    console.log("📥 Incoming investment request from user:", user_id);
-
-    const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-    // ✅ Get all investments for the current month
-    const monthlyInvestments = await Investment.find({
-      user_id,
-      createdAt: { $gte: startOfMonth, $lte: endOfMonth },
-    });
-
-    const totalInvested = monthlyInvestments.reduce((sum, inv) => {
-      const val = Number(inv.amount);
-      return isNaN(val) ? sum : sum + val;
-    }, 0);
-
-    // ✅ Get all budgets for the current month
-    const monthlyBudgets = await Budget.find({
-      user_id,
-      createdAt: { $gte: startOfMonth, $lte: endOfMonth },
-    });
-
-    if (!monthlyBudgets.length) {
-      return res.status(400).json({ error: 'No budgets found for this month.' });
-    }
-
-    const totalBudgetAmount = monthlyBudgets.reduce((sum, b) => {
-      const val = Number(b.amount);
-      return isNaN(val) ? sum : sum + val;
-    }, 0);
-
-    const remainingBudget = totalBudgetAmount - totalInvested;
-
-    if (numericAmount > remainingBudget) {
-      console.log("❌ BLOCKED: Over budget");
-      return res.status(400).json({
-        error: `You only have $${remainingBudget.toFixed(2)} remaining in your budget. This investment would exceed it.`,
-      });
-    }
+    console.log('📥 Incoming investment request from user:', user_id);
 
     // ✅ Safe to create the investment
     const investment = await Investment.create({
@@ -115,10 +73,10 @@ const createInvestment = async (req, res) => {
       user_id,
     });
 
-    console.log("✅ CREATED:", investment.title, "$" + numericAmount);
+    console.log('✅ CREATED:', investment.title, '$' + numericAmount);
     res.status(200).json(investment);
   } catch (error) {
-    console.error("❌ ERROR creating investment:", error);
+    console.error('❌ ERROR creating investment:', error);
     res.status(400).json({ error: error.message });
   }
 };

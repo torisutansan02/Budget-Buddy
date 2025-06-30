@@ -2,10 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { useInvestmentsContext } from '../hooks/useInvestmentsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './Form.css';
+import '../styles/Form.css';
 
 const InvestmentForm = () => {
-  const { dispatch } = useInvestmentsContext();
+  const { investmentDispatch } = useInvestmentsContext();
   const { user } = useAuthContext();
 
   const [title, setTitle] = useState('');
@@ -79,7 +79,7 @@ const InvestmentForm = () => {
       setError(null);
       setEmptyFields([]);
       console.log('New Investment Added', json);
-      dispatch({ type: 'CREATE_INVESTMENT', payload: json });
+      investmentDispatch({ type: 'CREATE_INVESTMENT', payload: json });
     }
   };
 

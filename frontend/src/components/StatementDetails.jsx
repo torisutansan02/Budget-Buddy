@@ -38,24 +38,22 @@ const StatementDetails = ({ file }) => {
 
   return (
     <div className="details">
-      <h4>{file.title}</h4>
-      <p>
-        <strong>Amount in $: </strong>
-        {file.amount}
-      </p>
-      <p>
-        <strong>Date: </strong>
-        {fileDate ? fileDate.toDateString() : 'Invalid date'}
-      </p>
-      <p>
-        <strong>Description: </strong>
-        {file.description}
-      </p>
-      <p>
-        {createdAtDate ? formatDistanceToNow(createdAtDate, { addSuffix: true }) : 'Invalid date'}
-      </p>
+      <div className="statement-info">
+        <h1>
+          <strong>Amount in $: </strong>
+          {file.amount}
+        </h1>
+        <p>
+          <strong>Description: </strong>
+          {file.description}
+        </p>
+        <p>
+          <strong>Date: </strong>
+          {fileDate ? fileDate.toDateString().slice(4) : 'Invalid date'}
+        </p>
+      </div>
       <span className="material-symbols-outlined" onClick={handleClick}>
-        🗑️
+        Delete
       </span>
     </div>
   );

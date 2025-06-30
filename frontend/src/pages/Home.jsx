@@ -10,7 +10,6 @@ import {
 } from '../hooks';
 import {
   Sidebar,
-  ToggleInvestmentForm,
   InvestmentDetails,
   InvestmentForm,
   BudgetDetails,
@@ -29,13 +28,21 @@ import { isTokenExpired } from '../utils/isTokenExpired';
 import { fetchWithAuth } from '../utils/fetchWithAuth';
 
 const capitalizeFirstLetter = (string) =>
-  typeof string === 'string'
-    ? string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
-    : '';
+  typeof string === 'string' ? string.charAt(0).toUpperCase() + string.slice(1).toLowerCase() : '';
 
 const months = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 const MonthSelect = ({ value, onChange, label }) => (
@@ -59,12 +66,11 @@ const Home = () => {
   const currentMonth = months[now.getMonth()];
   const navigate = useNavigate();
 
-  const [activeView, setActiveView] = useState('neither');
-  const [activeViewInvestment, setActiveViewInvestment] = useState('investmentAnalysis');
+  const [activeView, setActiveView] = useState('investments');
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedMonthStatements, setSelectedMonthStatements] = useState(currentMonth);
 
-  const { investments = [], dispatch } = useInvestmentsContext();
+  const { investments = [], investmentDispatch } = useInvestmentsContext();
   const { budgets = [], budgetDispatch } = useBudgetsContext();
   const { incomes = [], incomeDispatch } = useIncomesContext();
   const { files = [], fileDispatch } = useBanksContext();
@@ -76,10 +82,11 @@ const Home = () => {
   const useMonthlyFilter = (data, month, dateKey = 'createdAt') =>
     useMemo(
       () =>
-        (data || []).filter((item) =>
-          capitalizeFirstLetter(
-            new Date(item[dateKey]).toLocaleString('default', { month: 'long' })
-          ) === capitalizeFirstLetter(month)
+        (data || []).filter(
+          (item) =>
+            capitalizeFirstLetter(
+              new Date(item[dateKey]).toLocaleString('default', { month: 'long' })
+            ) === capitalizeFirstLetter(month)
         ),
       [data, month]
     );
@@ -112,8 +119,18 @@ const Home = () => {
   const handleMonthChangeStatements = (e) => setSelectedMonthStatements(e.target.value);
   const handleSetActiveView = (view) => {
     setActiveView(view);
-    if (['budgets', 'incomes', 'statements', 'spendingSummary', 'notifications'].includes(view)) {
-      setActiveViewInvestment('investmentAnalysis');
+  };
+
+  const renderForm = () => {
+    switch (activeView) {
+      case 'investments':
+        return <InvestmentForm />;
+      case 'budgets':
+        return <BudgetForm />;
+      case 'incomes':
+        return <IncomeForm />;
+      case 'statements':
+        return <StatementUpload />;
     }
   };
 
@@ -122,51 +139,96 @@ const Home = () => {
       case 'investments':
         return (
           <div className="home">
-            <ToggleInvestmentForm
-              activeViewInvestment={activeViewInvestment}
-              setActiveViewInvestment={setActiveViewInvestment}
-            />
+            <div className="investments">
+              <h1>Investments</h1>
+              <div className="chart">
+                <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
+                <InvestmentPieChart selectedMonth={selectedMonth} />
+              </div>
+              <div className="scroll">
+                {renderItems(
+                  filteredInvestments,
+                  (i) => (
+                    <InvestmentDetails key={i._id} investment={i} />
+                  ),
+                  'No investments for the selected month.'
+                )}
+              </div>
+            </div>
           </div>
         );
       case 'budgets':
         return (
           <div className="home">
             <div className="budgets">
-              <h2>Budget</h2>
-              <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
-              <BudgetDiffChart selectedMonth={selectedMonth} />
-              {renderItems(filteredBudgets, (b) => <BudgetDetails key={b._id} budget={b} />, 'No budgets for the selected month.')}
+              <h1>Budget</h1>
+              <div className="chart">
+                <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
+                <BudgetDiffChart selectedMonth={selectedMonth} />
+              </div>
+              <div className="scroll">
+                {renderItems(
+                  filteredBudgets,
+                  (b) => (
+                    <BudgetDetails key={b._id} budget={b} />
+                  ),
+                  'No budgets for the selected month.'
+                )}
+              </div>
             </div>
-            <BudgetForm />
           </div>
         );
       case 'incomes':
         return (
           <div className="home">
             <div className="incomes">
-              <h2>Income</h2>
-              <MonthSelect value={selectedMonthStatements} onChange={handleMonthChangeStatements} label="Month:" />
-              <IncomePieChart selectedMonth={selectedMonthStatements} />
-              {renderItems(filteredIncomes, (i) => <IncomeDetails key={i._id} income={i} />, 'No incomes for the selected month.')}
+              <h1>Income</h1>
+              <div className="chart">
+                <MonthSelect
+                  value={selectedMonthStatements}
+                  onChange={handleMonthChangeStatements}
+                  label="Month:"
+                />
+                <IncomePieChart selectedMonth={selectedMonthStatements} />
+              </div>
+              <div className="scroll">
+                {renderItems(
+                  filteredIncomes,
+                  (i) => (
+                    <IncomeDetails key={i._id} income={i} />
+                  ),
+                  'No incomes for the selected month.'
+                )}
+              </div>
             </div>
-            <IncomeForm />
           </div>
         );
       case 'statements':
         return (
           <div className="home">
             <div className="budgets">
-              <h2>Statements</h2>
-              <MonthSelect value={selectedMonthStatements} onChange={handleMonthChangeStatements} label="Month:" />
-              {renderItems(filteredFiles, (f) => <StatementDetails key={f._id} file={f} />, 'No statements for the selected month.')}
+              <h1>Statements</h1>
+              <MonthSelect
+                value={selectedMonthStatements}
+                onChange={handleMonthChangeStatements}
+                label="Month:"
+              />
+              <div className="scroll">
+                {renderItems(
+                  filteredFiles,
+                  (f) => (
+                    <StatementDetails key={f._id} file={f} />
+                  ),
+                  'No statements for the selected month.'
+                )}
+              </div>
             </div>
-            <StatementUpload />
           </div>
         );
       case 'spendingSummary':
         return (
           <div className="home">
-            <h2>Spending Summary</h2>
+            <h1>Spending Summary</h1>
             <SpendingSummary />
           </div>
         );
@@ -185,33 +247,6 @@ const Home = () => {
     }
   };
 
-  const renderViewInvestment = () => {
-    switch (activeViewInvestment) {
-      case 'investmentAnalysis':
-        return (
-          <div className="home">
-            <div className="investments">
-              <h2>Investments</h2>
-              <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
-              <InvestmentPieChart selectedMonth={selectedMonth} />
-              {renderItems(filteredInvestments, (i) => <InvestmentDetails key={i._id} investment={i} />, 'No investments for the selected month.')}
-              <h3>Total Investment Value: ${totalInvestmentValue.toFixed(2)}</h3>
-            </div>
-          </div>
-        );
-      case 'investmentForm':
-        return (
-          <div className="home">
-            <div className="investments">
-              <InvestmentForm />
-            </div>
-          </div>
-        );
-      default:
-        return <div className="home"></div>;
-    }
-  };
-
   useEffect(() => {
     if (!user || isTokenExpired(user.token)) {
       localStorage.removeItem('user');
@@ -222,14 +257,14 @@ const Home = () => {
 
     const fetchData = async () => {
       const endpoints = [
-        { url: '/api/investments', dispatch, type: 'SET_INVESTMENTS' },
+        { url: '/api/investments', dispatch: investmentDispatch, type: 'SET_INVESTMENTS' },
         { url: '/api/budgets', dispatch: budgetDispatch, type: 'SET_BUDGETS' },
         { url: '/api/incomes', dispatch: incomeDispatch, type: 'SET_INCOMES' },
         { url: '/api/banks', dispatch: fileDispatch, type: 'SET_FILES' },
         { url: '/api/notifications', dispatch: notificationDispatch, type: 'SET_NOTIFICATIONS' },
       ];
 
-      for (const { url, dispatch, type } of endpoints) {
+      for (const { url, dispatch: contextDispatch, type } of endpoints) {
         const data = await fetchWithAuth(
           `${import.meta.env.VITE_API_URL}${url}`,
           user.token,
@@ -240,7 +275,7 @@ const Home = () => {
             navigate('/login');
           }
         );
-        if (data) dispatch({ type, payload: data });
+        if (data) contextDispatch({ type, payload: data });
       }
     };
 
@@ -252,7 +287,11 @@ const Home = () => {
       if (totalInvestmentValue / totalBudgetValue <= 0.75) {
         localStorage.setItem('hasSentNotification', 'false');
       }
-      if (!hasSentNotification && totalBudgetValue > 0 && totalInvestmentValue / totalBudgetValue >= 0.75) {
+      if (
+        !hasSentNotification &&
+        totalBudgetValue > 0 &&
+        totalInvestmentValue / totalBudgetValue >= 0.75
+      ) {
         const notification = {
           message: `Alert: Your investment of $${totalInvestmentValue.toFixed(2)} is 75% or more of your total budget of $${totalBudgetValue.toFixed(2)}.`,
           sent: true,
@@ -273,25 +312,54 @@ const Home = () => {
       }
     };
     notifyIfInvestmentExceeds();
-  }, [totalInvestmentValue, totalBudgetValue, user, notifications, notificationDispatch, hasSentNotification]);
+  }, [
+    totalInvestmentValue,
+    totalBudgetValue,
+    user,
+    notifications,
+    notificationDispatch,
+    hasSentNotification,
+  ]);
 
   return (
-    <div>
+    <div className="layout">
       <Sidebar setActiveView={handleSetActiveView} notifications={notifications} />
-      <div style={{ flex: 1, padding: '15px' }}>
-        <h1>Account Summary</h1>
-        <p>Your income is currently ${totalIncomeValue} and you spent ${totalStatementValue.toFixed(2)} in {selectedMonthStatements}.</p>
-        <p>You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)} in {selectedMonthStatements}.</p>
-        <p>Your budget is ${totalBudgetValue} and you plan to spend ${totalInvestmentValue} in {selectedMonth}.</p>
-        <p>You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)} in {selectedMonth}.</p>
-        {hasSentNotification && (totalInvestmentValue / totalBudgetValue) * 100 > 75 && (
-          <p style={{ marginTop: '20px', padding: '10px', color: 'red' }}>
-            Your investments are currently {(totalInvestmentValue / totalBudgetValue * 100).toFixed(2)}% of your budget.
+
+      <div className="pages">
+        <div className="cards" id="left-column">
+          <h1>Account Summary</h1>
+          <p>
+            Your income is currently ${totalIncomeValue} and you spent $
+            {totalStatementValue.toFixed(2)} in {selectedMonthStatements}.
           </p>
-        )}
+          <p>
+            You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)} in{' '}
+            {selectedMonthStatements}.
+          </p>
+          <p>
+            Your budget is ${totalBudgetValue} and you plan to spend ${totalInvestmentValue} in{' '}
+            {selectedMonth}.
+          </p>
+          <p>
+            You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)} in{' '}
+            {selectedMonth}.
+          </p>
+          {hasSentNotification && (totalInvestmentValue / totalBudgetValue) * 100 > 75 && (
+            <p style={{ marginTop: '20px', padding: '10px', color: 'red' }}>
+              Your investments are currently{' '}
+              {((totalInvestmentValue / totalBudgetValue) * 100).toFixed(2)}% of your budget.
+            </p>
+          )}
+          {renderForm()}
+        </div>
+
+        <div className="cards" id="right-column">
+          {renderView()}
+        </div>
       </div>
-      {renderView()}
-      {renderViewInvestment()}
+
+      {/* Optional right column */}
+      {/* <div className="right-column">Something here</div> */}
     </div>
   );
 };
