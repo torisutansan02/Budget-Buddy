@@ -33,9 +33,16 @@ app.use(express.json());
 
 // Logger
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path}`);
+  const start = Date.now();
+
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    console.log(`[${req.method}] ${req.originalUrl} → ${res.statusCode} in ${duration}ms`);
+  });
+
   next();
 });
+
 
 // Health check
 app.get('/', (req, res) => {
