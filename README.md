@@ -4,10 +4,8 @@ A financial tracker that allows the user to track and interact with their financ
 
 ## Team Members
 
-- Srija Bhashyam
-- Art Guinto / aguin005
 - Tristan Cai
-- Junyan Hou
+- Haocheng Mai
 
 ## Build
 
