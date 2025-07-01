@@ -20,7 +20,7 @@ function App() {
         }}
       >
         <Navbar />
-        <div className="pages">
+        <div>
           <Routes>
             <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />

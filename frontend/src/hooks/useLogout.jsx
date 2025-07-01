@@ -13,7 +13,6 @@ export const useLogout = () => {
 
     // Dispatch logout-related actions
     dispatch({ type: 'LOGOUT' });
-    investmentsDispatch({ type: 'SET_INVESTMENTS', payload: [] }); // safer fallback than `null`
   };
 
   return { logout };
