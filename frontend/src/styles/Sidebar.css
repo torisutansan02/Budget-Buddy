@@ -1,6 +1,6 @@
 /* Base styles for sidebar */
 .sidebar-container {
-  background-color: #caffdd;
+  background-color: #4e4e4e;
 }
 
 /* Show sidebar by default on desktop */
@@ -9,7 +9,6 @@
   padding: 0;
   margin: 0;
   width: 250px;
-  background-color: #caffdd;
 }
 
 .sidebar li {
@@ -23,15 +22,15 @@
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
-  color: rgb(0, 0, 0);
+  color: white;
   text-align: left;
-  background-color: #caffdd;
+  background-color: #4e4e4e;
   cursor: pointer;
 }
 
 .sidebar button:hover,
 .sidebar button.active {
-  background-color: #97ffbd;
+  background-color: #888888;
 }
 
 /* Hamburger is hidden by default (visible only on mobile) */
@@ -47,25 +46,25 @@
 /* Mobile styles */
 @media (max-width: 1023px) {
   .hamburger {
+    background-color: #4e4e4e;
     position: fixed;
     display: block;
     top: 0;
     left: 0;
-    background-color: #caffdd;
     width: 100%;
     font-size: 2rem;
     text-align: left;
     border: none;
     cursor: pointer;
-    border-bottom: 0.2rem solid #caffdd;
+    border-bottom: 0.2rem solid #4e4e4e;
   }
 
   .sidebar-container {
     position: fixed;
-    top: 5rem;
+    top: 4.5rem;
     left: 0;
     width: 100%;
-    background-color: #caffdd;
+    background-color: #6b6b6b;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
@@ -75,7 +74,7 @@
   }
 
   .sidebar button {
-    background-color: #caffdd;
+    background-color: #4e4e4e;
     border: none;
     text-align: left;
     cursor: pointer;
@@ -86,7 +85,7 @@
 
   .sidebar button:hover,
   .sidebar button.active {
-    background-color: #97ffbd;
+    background-color: #4e4e4e;
     width: 100vw;
   }
 }

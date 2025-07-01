@@ -85,87 +85,41 @@ const InvestmentForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Investment</h3>
+      <h1>Add a New Investment</h1>
 
-      <label>Investment Title:</label>
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
+        placeholder="Investment"
         className={emptyFields.includes('title') ? 'error' : ''}
       />
 
-      <label>Amount in $:</label>
       <input
         type="number"
         onChange={(e) => setAmount(e.target.value)}
         value={amount}
         min="0"
+        placeholder="Amount in $"
         className={emptyFields.includes('amount') ? 'error' : ''}
       />
 
-      <label>Type:</label>
       <select
         onChange={(e) => setInvestmentType(e.target.value)}
         value={investmentType}
         className={emptyFields.includes('investmentType') ? 'error' : ''}
       >
-        <option value=""></option>
+        <option value="">Category</option>
         <option value="gas">Gas</option>
         <option value="groceries">Groceries</option>
         <option value="subscriptions">Subscriptions</option>
-        <option value="other">Other</option>
       </select>
 
-      {investmentType === 'other' && (
-        <>
-          <label>Custom Investment Type:</label>
-          <input
-            type="text"
-            onChange={(e) => setCustomInvestmentType(e.target.value)}
-            value={customInvestmentType}
-            className={emptyFields.includes('customInvestmentType') ? 'error' : ''}
-          />
-        </>
-      )}
-
-      <label>Is this a recurring payment?</label>
       <input
-        style={{ width: '2rem', height: '2rem' }}
-        type="checkbox"
-        onChange={(e) => setIsRecurring(e.target.checked)}
-        checked={isRecurring}
-      />
-
-      {isRecurring && (
-        <>
-          <label>Recurrence Frequency:</label>
-          <select
-            onChange={(e) => setRecurrenceFrequency(e.target.value)}
-            value={recurrenceFrequency}
-            className={emptyFields.includes('recurrenceFrequency') ? 'error' : ''}
-          >
-            <option value=""></option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
-
-          <label>Start Date:</label>
-          <input
-            type="date"
-            onChange={(e) => setStartDate(e.target.value)}
-            value={startDate}
-            className={emptyFields.includes('startDate') ? 'error' : ''}
-          />
-        </>
-      )}
-
-      <label>Investment Description:</label>
-      <textarea
         type="text"
         onChange={(e) => setDescription(e.target.value)}
         value={investmentDescription}
+        placeholder="Description"
         className={emptyFields.includes('investmentDescription') ? 'error' : 'description'}
       />
 

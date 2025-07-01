@@ -1,7 +1,10 @@
 .scroll {
   margin-top: 1rem;
-  max-height: 30rem; /* or any height you want */
+  max-height: 20rem;
   overflow-y: auto;
+}
+.scroll p {
+  padding-left: 1rem;
 }
 
 .details {
@@ -10,11 +13,10 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  background-color: rgb(228, 184, 255);
 }
 
 .details:hover {
-  background-color: rgb(193, 193, 193);
+  background-color: rgb(157, 255, 255);
 }
 
 .details h1 {

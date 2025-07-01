@@ -1,7 +1,7 @@
 /* === Base Styles (Desktop First) === */
 
 * {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -20,67 +20,62 @@ body {
 }
 
 .cards {
-  background-color: rgb(150, 220, 255);
+  background-color: rgb(255, 238, 238);
   border-radius: 1rem;
   box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.5);
   height: fit-content;
 }
 
 .account-summary {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 1rem;
   border-radius: 1rem;
-  background-color: rgb(221, 244, 255);
+  background-color: rgb(255, 198, 198);
   box-shadow: 1rem 1rem 5rem rgba(0, 0, 0, 0.2);
 }
 
 .form-box {
-  margin: 1rem;
   padding-top: 1rem;
   padding-bottom: 2rem;
   padding-left: 2rem;
   padding-right: 3rem;
+  max-height: 20rem;
+  overflow-y: auto;
   border-radius: 1rem;
-  background-color: rgb(191, 234, 255);
 }
 
 #left-column,
 #middle-column,
 #right-column {
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   margin: 1rem;
 }
 
 #left-column {
-  background-color: rgb(199, 255, 224);
+  width: 10rem;
+  background-color: rgb(93, 255, 166);
   padding: 0;
-  margin-right: 2rem;
+  margin-right: 3rem;
+}
+
+#middle-column {
+  width: 30rem;
+}
+
+#right-column h2 {
+  padding-left: 1rem;
 }
 
 #right-column {
-  background-color: rgb(224, 157, 253);
-}
-
-@media (min-width: 1024px) {
-  #left-column {
-    width: 10rem;
-  }
-
-  #middle-column {
-    width: 30rem;
-  }
-
-  #right-column {
-    width: 40rem;
-  }
+  width: 30rem;
+  background-color: #c2fdff;
 }
 
 .chart {
-  background-color: rgb(255, 214, 241);
+  background-color: rgb(118, 250, 255);
   box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
+  margin-bottom: 3rem;
   padding-top: 1rem;
   padding-bottom: 2rem;
   padding-left: 2rem;
@@ -88,14 +83,14 @@ body {
 }
 
 .inner-chart {
-  background-color: rgb(255, 167, 224);
+  background-color: rgb(213, 254, 255);
   border-radius: 1rem;
   padding-top: 1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 input {
-  width: 100%;
+  width: fit-content;
   padding: 10px;
   border-radius: 1rem;
   border: 1px solid #ccc;
@@ -135,6 +130,14 @@ form.login {
   cursor: pointer;
 }
 
+.spending-summary {
+  padding: 1rem;
+}
+
+.spending-summary h1 {
+  padding-left: 1rem;
+}
+
 /* === Mobile/Tablet === */
 @media (max-width: 1023px) {
   html {
@@ -160,9 +163,8 @@ form.login {
   #right-column {
     width: 100%;
     margin: 0;
-    padding: 2rem;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   .chart {

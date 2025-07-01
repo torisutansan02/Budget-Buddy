@@ -39,18 +39,11 @@ const StatementDetails = ({ file }) => {
   return (
     <div className="details">
       <div className="statement-info">
-        <h1>
-          <strong>${file.amount} </strong>
-        </h1>
-        <p>
-          <strong>Description: </strong>
-          {file.description}
-        </p>
-        <p>
-          <strong>Date: </strong>
-          {fileDate ? fileDate.toDateString().slice(4) : 'Invalid date'}
-        </p>
+        <h1>{fileDate ? fileDate.toDateString().slice(4) : 'Invalid date'}</h1>
+        <p>{file.description}</p>
+        <p></p>
       </div>
+      <strong>${file.amount} </strong>
       <span className="material-symbols-outlined" onClick={handleClick}>
         Delete
       </span>

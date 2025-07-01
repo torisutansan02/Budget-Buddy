@@ -1,7 +1,8 @@
 .create input[type='text'],
 .create input[type='number'],
 .create select {
-  background-color: rgb(243, 243, 243);
+  border: none;
+  background-color: rgb(255, 255, 255);
   border-radius: 1rem;
   padding: 0.5rem;
   margin-top: 0.5rem;
@@ -26,14 +27,15 @@
 .create button {
   padding: 1rem;
   font-size: 1rem;
-  background-color: #b3ff9e;
+  background-color: #ffc4c2;
+  border-radius: 1rem;
   color: black;
   border: none;
   cursor: pointer;
 }
 
 .create button:hover {
-  background-color: #70ff49;
+  background-color: #ffb1af;
 }
 
 .button-container {

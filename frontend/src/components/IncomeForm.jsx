@@ -47,25 +47,24 @@ const IncomeForm = () => {
   };
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3> Add a New Income Source </h3>
+      <h1> New Income Source </h1>
 
-      <label> Income Type: </label>
       <select
         onChange={(e) => setIncomeType(e.target.value)}
         value={incomeType}
         className={emptyFields.includes('incomeType') ? 'error' : ''}
       >
-        <option value=""> </option>
+        <option value="">Category</option>
         <option value="Active"> Active </option>
         <option value="Passive"> Passive </option>
       </select>
 
-      <label> Amount in $: </label>
       <input
         type="number"
         onChange={(e) => setAmount(e.target.value)}
         value={amount}
         min="0"
+        placeholder="Amount in $"
         className={emptyFields.includes('amount') ? 'error' : ''}
       />
 

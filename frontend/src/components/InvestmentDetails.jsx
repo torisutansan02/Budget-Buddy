@@ -37,15 +37,8 @@ const InvestmentDetails = ({ investment }) => {
       <div className="details">
         <div className="investment-info">
           <h1>{investment.title}</h1>
-          <p>
-            <strong>Amount:</strong> ${investment.amount}
-          </p>
-          <p>
-            <strong>Type:</strong> {investment.investmentType}
-          </p>
-          <p>
-            <strong>Description:</strong> {investment.investmentDescription}
-          </p>
+          <p>{formatDistanceToNow(new Date(investment.createdAt), { addSuffix: true })}</p>
+          <p>{investment.investmentDescription}</p>
 
           {investment.isRecurring && (
             <>
@@ -62,7 +55,7 @@ const InvestmentDetails = ({ investment }) => {
           )}
         </div>
 
-        <p>{formatDistanceToNow(new Date(investment.createdAt), { addSuffix: true })}</p>
+        <p>${investment.amount}</p>
         <span className="material-symbols-outlined" onClick={handleClick}>
           Delete
         </span>

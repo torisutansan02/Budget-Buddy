@@ -131,6 +131,17 @@ const Home = () => {
         return <IncomeForm />;
       case 'statements':
         return <StatementUpload />;
+      default:
+        return (
+          <>
+          <h1>
+          Account Summary
+        </h1>
+        <p>
+          Above, you will find the account summary.
+        </p>
+          </>
+        );
     }
   };
 
@@ -142,9 +153,10 @@ const Home = () => {
             <div className="investments">
               <div className="chart">
                 <h1>Investments</h1>
-                <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
+                <MonthSelect value={selectedMonth} onChange={handleMonthChange} />
                 <InvestmentPieChart selectedMonth={selectedMonth} />
               </div>
+              <h2> Investment Details </h2>
               <div className="scroll">
                 {renderItems(
                   filteredInvestments,
@@ -163,9 +175,10 @@ const Home = () => {
             <div className="budgets">
               <div className="chart">
                 <h1>Budget</h1>
-                <MonthSelect value={selectedMonth} onChange={handleMonthChange} label="Month:" />
+                <MonthSelect value={selectedMonth} onChange={handleMonthChange} />
                 <BudgetDiffChart selectedMonth={selectedMonth} />
               </div>
+              <h2> Budget Details </h2>
               <div className="scroll">
                 {renderItems(
                   filteredBudgets,
@@ -187,10 +200,10 @@ const Home = () => {
                 <MonthSelect
                   value={selectedMonthStatements}
                   onChange={handleMonthChangeStatements}
-                  label="Month:"
                 />
                 <IncomePieChart selectedMonth={selectedMonthStatements} />
               </div>
+              <h2> Income Details </h2>
               <div className="scroll">
                 {renderItems(
                   filteredIncomes,
@@ -207,12 +220,11 @@ const Home = () => {
         return (
           <div className="home">
             <div className="budgets">
+              <div className="chart">
               <h1>Statements</h1>
-              <MonthSelect
-                value={selectedMonthStatements}
-                onChange={handleMonthChangeStatements}
-                label="Month:"
-              />
+              <MonthSelect value={selectedMonthStatements} onChange={handleMonthChangeStatements} />
+              </div>
+              <h2> Statement Details </h2>
               <div className="scroll">
                 {renderItems(
                   filteredFiles,
@@ -227,8 +239,8 @@ const Home = () => {
         );
       case 'spendingSummary':
         return (
-          <div className="home">
-            <h1>Spending Summary</h1>
+          <div className="spending-summary">
+                          <h1>Spending Summary</h1>
             <SpendingSummary />
           </div>
         );
@@ -329,32 +341,27 @@ const Home = () => {
         </aside>
         <section className="cards" id="middle-column">
           <div className="account-summary">
-            <h1>Account Summary</h1>
+            <h1>{selectedMonthStatements} Summary</h1>
+            <strong>Income - Spending</strong>
+            <h2>
+              ${totalIncomeValue} - ${-totalStatementValue.toFixed(2)}
+            </h2>
+            <strong>Savings</strong>
+            <h2>${(totalIncomeValue - totalStatementValue).toFixed(2)}</h2>
+            <strong>Budget - Investment</strong>
+            <h2>
+              ${totalBudgetValue} - ${totalInvestmentValue}
+            </h2>
             <p>
-              Your income is currently ${totalIncomeValue} and you spent $
-              {-totalStatementValue.toFixed(2)} in {selectedMonthStatements}.
+              <strong>
+                You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)}.
+              </strong>
             </p>
-            <p>
-              You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)} in{' '}
-              {selectedMonthStatements}.
-            </p>
-            <p>
-              Your budget is ${totalBudgetValue} and you plan to spend ${totalInvestmentValue} in{' '}
-              {selectedMonth}.
-            </p>
-            <p>
-              You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)} in{' '}
-              {selectedMonth}.
-            </p>
-            {hasSentNotification && (totalInvestmentValue / totalBudgetValue) * 100 > 75 && (
-              <p style={{ marginTop: '20px', padding: '10px', color: 'red' }}>
-                Your investments are currently{' '}
-                {((totalInvestmentValue / totalBudgetValue) * 100).toFixed(2)}% of your budget.
-              </p>
-            )}
           </div>
           <div className="form-box">{renderForm()}</div>
         </section>
+
+        {/* <div className="form-box">{renderForm()}</div> */}
 
         <aside className="cards" id="right-column">
           {renderView()}

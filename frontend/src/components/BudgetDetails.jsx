@@ -32,9 +32,9 @@ const BudgetDetails = ({ budget }) => {
     <div className="details">
       <div className="budget-details">
         <h1>Budget</h1>
-        <p>${budget.amount}</p>
+        <p>{formatDistanceToNow(new Date(budget.createdAt), { addSuffix: true })}</p>
       </div>
-      <p>{formatDistanceToNow(new Date(budget.createdAt), { addSuffix: true })}</p>
+      <p>${budget.amount}</p>
       <span className="material-symbols-outlined" onClick={handleClick}>
         Delete
       </span>
