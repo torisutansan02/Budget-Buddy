@@ -68,7 +68,6 @@ const Home = () => {
 
   const [activeView, setActiveView] = useState('investments');
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
-  const [selectedMonthStatements, setSelectedMonthStatements] = useState(currentMonth);
 
   const { investments = [], investmentDispatch } = useInvestmentsContext();
   const { budgets = [], budgetDispatch } = useBudgetsContext();
@@ -103,20 +102,19 @@ const Home = () => {
     [filteredBudgets]
   );
 
-  const filteredFiles = useMonthlyFilter(files, selectedMonthStatements, 'date');
+  const filteredFiles = useMonthlyFilter(files, selectedMonth, 'date');
   const totalStatementValue = useMemo(
     () => filteredFiles.reduce((sum, f) => sum - f.amount, 0),
     [filteredFiles]
   );
 
-  const filteredIncomes = useMonthlyFilter(incomes, selectedMonthStatements);
+  const filteredIncomes = useMonthlyFilter(incomes, selectedMonth);
   const totalIncomeValue = useMemo(
     () => filteredIncomes.reduce((sum, i) => sum + i.amount, 0),
     [filteredIncomes]
   );
 
   const handleMonthChange = (e) => setSelectedMonth(e.target.value);
-  const handleMonthChangeStatements = (e) => setSelectedMonthStatements(e.target.value);
   const handleSetActiveView = (view) => {
     setActiveView(view);
   };
@@ -134,12 +132,8 @@ const Home = () => {
       default:
         return (
           <>
-          <h1>
-          Account Summary
-        </h1>
-        <p>
-          Above, you will find the account summary.
-        </p>
+            <h1>Account Summary</h1>
+            <p>Above, you will find the account summary.</p>
           </>
         );
     }
@@ -197,11 +191,8 @@ const Home = () => {
             <div className="incomes">
               <div className="chart">
                 <h1>Income</h1>
-                <MonthSelect
-                  value={selectedMonthStatements}
-                  onChange={handleMonthChangeStatements}
-                />
-                <IncomePieChart selectedMonth={selectedMonthStatements} />
+                <MonthSelect value={selectedMonth} onChange={handleMonthChange} />
+                <IncomePieChart selectedMonth={selectedMonth} />
               </div>
               <h2> Income Details </h2>
               <div className="scroll">
@@ -221,8 +212,8 @@ const Home = () => {
           <div className="home">
             <div className="budgets">
               <div className="chart">
-              <h1>Statements</h1>
-              <MonthSelect value={selectedMonthStatements} onChange={handleMonthChangeStatements} />
+                <h1>Statements</h1>
+                <MonthSelect value={selectedMonth} onChange={handleMonthChange} />
               </div>
               <h2> Statement Details </h2>
               <div className="scroll">
@@ -240,7 +231,7 @@ const Home = () => {
       case 'spendingSummary':
         return (
           <div className="spending-summary">
-                          <h1>Spending Summary</h1>
+            <h1>Spending Summary</h1>
             <SpendingSummary />
           </div>
         );
@@ -341,14 +332,19 @@ const Home = () => {
         </aside>
         <section className="cards" id="middle-column">
           <div className="account-summary">
-            <h1>Summary ({selectedMonthStatements})</h1>
+            <h1>Summary ({selectedMonth})</h1>
             <h3>Savings</h3>
-            <p>Your income is ${totalIncomeValue} and your spending is ${-totalStatementValue.toFixed(2)}</p>
-            <p><strong>You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)}</strong></p>
-            <h3>
-              Planned Savings
-            </h3>
-            <p>Your budget is ${totalBudgetValue} and your investments are ${totalInvestmentValue}</p>
+            <p>
+              Your income is ${totalIncomeValue} and your spending is $
+              {-totalStatementValue.toFixed(2)}
+            </p>
+            <p>
+              <strong>You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)}</strong>
+            </p>
+            <h3>Planned Savings</h3>
+            <p>
+              Your budget is ${totalBudgetValue} and your investments are ${totalInvestmentValue}
+            </p>
             <p>
               <strong>
                 You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)}
@@ -357,8 +353,6 @@ const Home = () => {
           </div>
           <div className="form-box">{renderForm()}</div>
         </section>
-
-        {/* <div className="form-box">{renderForm()}</div> */}
 
         <aside className="cards" id="right-column">
           {renderView()}
