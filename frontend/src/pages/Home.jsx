@@ -231,8 +231,13 @@ const Home = () => {
       case 'spendingSummary':
         return (
           <div className="spending-summary">
-            <h1>Spending Summary</h1>
-            <SpendingSummary />
+            <div className="chart">
+              <h1>Spending Summary</h1>
+              <SpendingSummary />
+            </div>
+            <p>
+              Take a look at the above chart to evaluate your spending habits for the month.
+            </p>
           </div>
         );
       case 'notifications':
@@ -335,15 +340,14 @@ const Home = () => {
             <h1>Summary ({selectedMonth})</h1>
             <h3>Savings</h3>
             <p>
-              Your income is ${totalIncomeValue} and your spending is $
-              {-totalStatementValue.toFixed(2)}
+              Your income is <strong>${totalIncomeValue}</strong> and your spending is <strong>${-totalStatementValue.toFixed(2)}</strong>
             </p>
             <p>
               <strong>You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)}</strong>
             </p>
             <h3>Planned Savings</h3>
             <p>
-              Your budget is ${totalBudgetValue} and your investments are ${totalInvestmentValue}
+              Your budget is <strong>${totalBudgetValue}</strong> and your investments are <strong>${totalInvestmentValue}</strong>
             </p>
             <p>
               <strong>

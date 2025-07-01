@@ -58,11 +58,9 @@ const SpendingSummary = () => {
 
   return (
     <div className="spending-summary">
-      <p>Total monthly investments: ${totalInvestmentValue.toFixed(2)}</p>
       <form className="create">
-        <label>Month:</label>
         <select value={selectedMonth} onChange={handleMonthChange}>
-          <option value=""></option>
+          <option value="">Month</option>
           <option value="january">January</option>
           <option value="february">February</option>
           <option value="march">March</option>
@@ -77,13 +75,9 @@ const SpendingSummary = () => {
           <option value="december">December</option>
         </select>
       </form>
-      {/* Pass the selected month to use */}
       <CategoryBarChart selectedMonth={selectedMonth} />
-      <label>
-        <strong>Year:</strong>
-      </label>
-      <p>Percentage of income spent: {investmentPercentage.toFixed(2)}%</p>
-      <p>Remaining income after investments: ${remainingIncome.toFixed(2)}</p>
+      <p>Percentage of Income Spent: {investmentPercentage.toFixed(2)}%</p>
+      <p>Remaining Income after Investments: ${remainingIncome.toFixed(2)}</p>
     </div>
   );
 };
