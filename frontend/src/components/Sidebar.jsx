@@ -38,7 +38,7 @@ const Sidebar = ({ setActiveView, notifications }) => {
                 onClick={() => handleClick(item)}
               >
                 {item === 'spendingSummary'
-                  ? 'Spending Summary'
+                  ? 'Summary'
                   : item.charAt(0).toUpperCase() + item.slice(1)}
                 {item === 'notifications' && hasNotifications && <> ({safeNotifications.length})</>}
               </button>
