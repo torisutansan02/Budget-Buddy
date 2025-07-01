@@ -341,20 +341,17 @@ const Home = () => {
         </aside>
         <section className="cards" id="middle-column">
           <div className="account-summary">
-            <h1>{selectedMonthStatements} Summary</h1>
-            <strong>Income - Spending</strong>
-            <h2>
-              ${totalIncomeValue} - ${-totalStatementValue.toFixed(2)}
-            </h2>
-            <strong>Savings</strong>
-            <h2>${(totalIncomeValue - totalStatementValue).toFixed(2)}</h2>
-            <strong>Budget - Investment</strong>
-            <h2>
-              ${totalBudgetValue} - ${totalInvestmentValue}
-            </h2>
+            <h1>Summary ({selectedMonthStatements})</h1>
+            <h3>Savings</h3>
+            <p>Your income is ${totalIncomeValue} and your spending is ${-totalStatementValue.toFixed(2)}</p>
+            <p><strong>You saved ${(totalIncomeValue - totalStatementValue).toFixed(2)}</strong></p>
+            <h3>
+              Planned Savings
+            </h3>
+            <p>Your budget is ${totalBudgetValue} and your investments are ${totalInvestmentValue}</p>
             <p>
               <strong>
-                You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)}.
+                You plan to save ${(totalBudgetValue - totalInvestmentValue).toFixed(2)}
               </strong>
             </p>
           </div>
