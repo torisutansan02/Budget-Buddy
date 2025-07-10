@@ -37,6 +37,39 @@ A financial tracker that allows the user to track and interact with their financ
       - `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
 - Afterwards, refer to the README files to install dependencies for the frontend and backend directories.
 - You should now be able to run the development server for both the frontend and backend.
+  - `npm run dev`
+
+### Postman
+
+- Install the most recent version of postman.
+- Register / Login to Postman.
+- Click `Collections` on the left sidebar.
+- Hover and click the `+` button to add a new collection.
+  - This creates a new collection.
+- Name the collection `Budget Buddy`.
+- Hover and click the `+` button on the highlighted `Budget Buddy` collection.
+  - This creates a new request.
+  - Appropriately name the new request.
+- Click the new request.
+  - You are given the option to change the HTTP method, and enter an API URL.
+- Run the backend server.
+  - `cd backend` and `npm run dev`
+- Register a new user.
+  - ```POST localhost:4000/api/user/signup```
+  - ```{"email": "<Your Email>", "password": "<Your Password>"}```
+- Create bearer token.
+  - ```POST localhost:4000/api/user/login```
+  - ```{"email": "<Your Email>", "password": "<Your Password>"}```
+  - This generated a token under ```"token": "<Your Token>"```
+- When testing APIs, ensure:
+  - Under ```Authorization``` and ```Auth Type```, select ```Bearer Token```.
+  - Paste the token under ```Token```.
+  - Under ```Body``` and ```raw```, insert raw JSON.
+    - I.E. ```{"title": "Gas", "amount": 20}```.
+  - Click ```Send``` for the API request.
+  - If successful, you should receive a status ```200``` and document JSON.
+  - Else, you should receive an error message.
+    - TODO: Explain Error Messages.
 
 ## Usage
 
