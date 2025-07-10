@@ -46,13 +46,13 @@ A financial tracker that allows the user to track and interact with their financ
 - Click `Collections` on the left sidebar.
 - Hover and click the `+` button to add a new collection.
   - This creates a new collection.
-- Name the collection `Budget Buddy`.
+  - Name the collection `Budget Buddy`.
 - Hover and click the `+` button on the highlighted `Budget Buddy` collection.
   - This creates a new request.
   - Appropriately name the new request.
 - Click the new request.
   - You are given the option to change the HTTP method, and enter an API URL.
-- Run the backend server.
+- Run the backend server in a terminal.
   - `cd backend` and `npm run dev`
 - Register a new user.
   - ```POST localhost:4000/api/user/signup```
