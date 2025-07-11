@@ -109,7 +109,7 @@ div.error {
 .form-container {
   display: flex;
   justify-content: center; /* center horizontally */
-  align-items: center;     /* center vertically */
+  align-items: center; /* center vertically */
   margin-top: 2rem;
 }
 

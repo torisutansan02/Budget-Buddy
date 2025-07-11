@@ -31,6 +31,9 @@ const getBudget = async (req, res) => {
 const createBudget = async (req, res) => {
   const { amount } = req.body;
 
+  console.log(req);
+  console.log(req.body);
+
   let emptyFields = [];
 
   if (!amount) {
@@ -39,9 +42,17 @@ const createBudget = async (req, res) => {
 
   if (emptyFields.length > 0) {
     console.log(emptyFields);
-    return res.status(400).json({ error: 'Please fill in all the fields', emptyFields });
+    return res.status(401).json({ error: 'Please fill in all the fields', emptyFields });
+  }
+  if (Object.keys(req.body).length > 1) {
+    return res.status(400).json({ error: 'Please use valid fields' });
   }
   // Add document to database
+  if (amount === undefined || amount === null || amount === '' || isNaN(amount) || amount < 0) {
+    return res.status(401).json({ error: 'Budget amount must be a positive integer.' });
+  } else if (amount > 10000) {
+    return res.status(401).json({ error: 'Budget amount must be a value between 1 and 10,000.' });
+  }
   try {
     const user_id = req.user._id;
     const budget = await Budget.create({ amount, user_id });

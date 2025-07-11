@@ -55,19 +55,19 @@ A financial tracker that allows the user to track and interact with their financ
 - Run the backend server in a terminal.
   - `cd backend` and `npm run dev`
 - Register a new user.
-  - ```POST localhost:4000/api/user/signup```
-  - ```{"email": "<Your Email>", "password": "<Your Password>"}```
+  - `POST localhost:4000/api/user/signup`
+  - `{"email": "<Your Email>", "password": "<Your Password>"}`
 - Create bearer token.
-  - ```POST localhost:4000/api/user/login```
-  - ```{"email": "<Your Email>", "password": "<Your Password>"}```
-  - This generated a token under ```"token": "<Your Token>"```
+  - `POST localhost:4000/api/user/login`
+  - `{"email": "<Your Email>", "password": "<Your Password>"}`
+  - This generated a token under `"token": "<Your Token>"`
 - When testing APIs, ensure:
-  - Under ```Authorization``` and ```Auth Type```, select ```Bearer Token```.
-  - Paste the token under ```Token```.
-  - Under ```Body``` and ```raw```, insert raw JSON.
-    - I.E. ```{"title": "Gas", "amount": 20}```.
-  - Click ```Send``` for the API request.
-  - If successful, you should receive a status ```200``` and document JSON.
+  - Under `Authorization` and `Auth Type`, select `Bearer Token`.
+  - Paste the token under `Token`.
+  - Under `Body` and `raw`, insert raw JSON.
+    - I.E. `{"title": "Gas", "amount": 20}`.
+  - Click `Send` for the API request.
+  - If successful, you should receive a status `200` and document JSON.
   - Else, you should receive an error message.
     - TODO: Explain Error Messages.
 
